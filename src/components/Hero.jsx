@@ -82,7 +82,7 @@ export default function Hero() {
             >
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto mb-10">
                 <a
-                  href="#cotizador"
+                  href="/servicios#cotizador"
                   className="inline-flex items-center justify-center gap-3 px-8 py-4 sm:py-5 rounded-full bg-charcoal text-flour font-extrabold text-base shadow-warm-lg hover:bg-craft-900 transition-all hover:scale-105 active:scale-95 group"
                 >
                   <Flame className="w-5 h-5 text-cometoYellow animate-pulse" />
@@ -91,7 +91,7 @@ export default function Hero() {
                 </a>
 
                 <a
-                  href="#menu"
+                  href="/servicios#menu"
                   className="inline-flex items-center justify-center gap-2 px-7 py-4 sm:py-5 rounded-full bg-flour border-2 border-craft-400 text-charcoal font-bold text-base hover:bg-craft-100 hover:border-craft-500 transition-all shadow-warm-sm"
                 >
                   <span>Ver Carta de Pizzas</span>

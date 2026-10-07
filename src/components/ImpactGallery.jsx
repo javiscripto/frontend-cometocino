@@ -153,7 +153,7 @@ export default function ImpactGallery() {
 
               <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-4 justify-center items-stretch lg:items-end">
                 <a
-                  href="#cotizador"
+                  href="/servicios#cotizador"
                   className="px-8 py-4 rounded-full bg-cometoYellow text-charcoal font-black text-base shadow-glow-yellow hover:bg-cometoYellow-amber hover:scale-105 active:scale-95 transition-all text-center flex items-center justify-center gap-2"
                 >
                   <Flame className="w-5 h-5 text-cometoRed" />

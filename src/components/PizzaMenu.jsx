@@ -138,7 +138,7 @@ export default function PizzaMenu() {
               </div>
             </div>
             <a
-              href="#cotizador"
+              href="/servicios#cotizador"
               className="px-6 py-3 rounded-full bg-craft-400 hover:bg-craft-500 text-charcoal text-xs font-black uppercase tracking-wider transition-all shrink-0 shadow-sm hover:scale-105 active:scale-95"
             >
               Cotizar con requerimientos

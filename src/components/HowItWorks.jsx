@@ -94,7 +94,7 @@ export default function HowItWorks() {
                 </p>
                 <div className="flex flex-wrap gap-4 items-center">
                   <a
-                    href="#cotizador"
+                    href="/servicios#cotizador"
                     className="px-8 py-4 rounded-full bg-charcoal text-flour font-extrabold text-sm sm:text-base hover:bg-charcoal-light transition-all shadow-warm inline-flex items-center gap-2 hover:scale-105 active:scale-95"
                   >
                     <span>Reservar fecha para mi fiesta</span>

@@ -66,7 +66,7 @@ export default function Footer() {
             <ul className="space-y-2.5 text-sm text-flour/80">
               <li>
                 <a
-                  href="#experiencia"
+                  href="/servicios#experiencia"
                   className="hover:text-cometoYellow transition-colors"
                 >
                   Cómo Funciona
@@ -74,7 +74,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="#menu"
+                  href="/servicios#menu"
                   className="hover:text-cometoYellow transition-colors"
                 >
                   Carta de Pizzas
@@ -82,7 +82,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="#pedidos"
+                  href="/pedir-online"
                   className="hover:text-cometoYellow transition-colors font-semibold text-cometoYellow/90"
                 >
                   Hacer Pedido
@@ -90,7 +90,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="#proceso"
+                  href="/quienes-somos#proceso"
                   className="hover:text-cometoYellow transition-colors"
                 >
                   Masa Madre 48h
@@ -98,7 +98,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="#planes"
+                  href="/servicios#planes"
                   className="hover:text-cometoYellow transition-colors"
                 >
                   Planes y Precios
@@ -106,7 +106,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="#cotizador"
+                  href="/servicios#cotizador"
                   className="hover:text-cometoYellow transition-colors"
                 >
                   Cotizador Online
@@ -114,7 +114,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="#faq"
+                  href="/servicios#faq"
                   className="hover:text-cometoYellow transition-colors"
                 >
                   Preguntas Frecuentes
@@ -167,7 +167,7 @@ export default function Footer() {
               </p>
               <div className="pt-2">
                 <a
-                  href="#cotizador"
+                  href="/servicios#cotizador"
                   className="w-full py-3 px-5 rounded-full bg-craft-400 hover:bg-craft-500 text-charcoal font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2"
                 >
                   <Flame className="w-4 h-4 text-cometoRed" />
