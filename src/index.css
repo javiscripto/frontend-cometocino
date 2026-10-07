@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #ff0000;
+    color: #191715;
+    font-family: "Plus Jakarta Sans", sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-serif {
+    font-family: "Playfair Display", Georgia, serif;
+  }
+}
+
+/* Custom pizza & craft textures */
+.bg-kraft-texture {
+  background-color: #d0b087;
+  background-color: #f4ede1;
+  background-image: radial-gradient(
+      rgba(132, 98, 59, 0.12) 1px,
+      transparent 1px
+    ),
+    radial-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position:
+    0 0,
+    12px 12px;
+}
+
+.bg-flour-dots {
+  background-image: radial-gradient(
+    rgba(208, 176, 135, 0.25) 1.5px,
+    transparent 1.5px
+  );
+  background-size: 20px 20px;
+}
+
+.bg-dark-fire {
+  background: radial-gradient(circle at 50% 0%, #2b1c16 0%, #151210 100%);
+}
+
+/* Subtle steam animation */
+@keyframes steam {
+  0% {
+    transform: translateY(0) scaleX(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-12px) scaleX(1.15);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-24px) scaleX(1);
+    opacity: 0;
+  }
+}
+
+.animate-steam {
+  animation: steam 3s ease-in-out infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f4ede1;
+}
+::-webkit-scrollbar-thumb {
+  background: #be9a6b;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a68051;
+}
