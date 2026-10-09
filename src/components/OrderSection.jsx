@@ -105,6 +105,7 @@ export default function OrderSection() {
         precio: Number(
           item.salePrice ?? item.actual_sale_price ?? item.precio ?? 0,
         ),
+        disponible: item.active ?? item.disponible ?? true,
       }));
 
       setProducts(cleanProducts);
@@ -451,45 +452,53 @@ export default function OrderSection() {
                       </div>
 
                       {/* Quantity Controls / Add to Order */}
-                      <div className="pt-4 border-t border-craft-200/80 flex items-center justify-between gap-3">
-                        {qtyInCart > 0 ? (
-                          <div className="w-full flex items-center justify-between bg-craft-100 px-3 py-1.5 rounded-xl border border-craft-300">
-                            <span className="text-xs font-bold text-charcoal">
-                              En pedido:{" "}
-                              <span className="text-cometoRed">
-                                {qtyInCart}
+                      {product.disponible ? (
+                        <div className="pt-4 border-t border-craft-200/80 flex items-center justify-between gap-3">
+                          {qtyInCart > 0 ? (
+                            <div className="w-full flex items-center justify-between bg-craft-100 px-3 py-1.5 rounded-xl border border-craft-300">
+                              <span className="text-xs font-bold text-charcoal">
+                                En pedido:{" "}
+                                <span className="text-cometoRed">
+                                  {qtyInCart}
+                                </span>
                               </span>
-                            </span>
-                            <div className="flex items-center gap-2">
-                              <button
-                                onClick={() => removeFromCart(product.id)}
-                                className="w-8 h-8 rounded-lg bg-flour hover:bg-craft-200 text-charcoal flex items-center justify-center font-bold text-sm shadow-sm transition-colors"
-                                aria-label={`Quitar una unidad de ${product.nombre}`}
-                              >
-                                <Minus className="w-3.5 h-3.5" />
-                              </button>
-                              <span className="w-6 text-center text-sm font-black text-charcoal">
-                                {qtyInCart}
-                              </span>
-                              <button
-                                onClick={() => addToCart(product.id)}
-                                className="w-8 h-8 rounded-lg bg-charcoal hover:bg-charcoal-light text-flour flex items-center justify-center font-bold text-sm shadow-sm transition-colors"
-                                aria-label={`Agregar una unidad de ${product.nombre}`}
-                              >
-                                <Plus className="w-3.5 h-3.5" />
-                              </button>
+                              <div className="flex items-center gap-2">
+                                <button
+                                  onClick={() => removeFromCart(product.id)}
+                                  className="w-8 h-8 rounded-lg bg-flour hover:bg-craft-200 text-charcoal flex items-center justify-center font-bold text-sm shadow-sm transition-colors"
+                                  aria-label={`Quitar una unidad de ${product.nombre}`}
+                                >
+                                  <Minus className="w-3.5 h-3.5" />
+                                </button>
+                                <span className="w-6 text-center text-sm font-black text-charcoal">
+                                  {qtyInCart}
+                                </span>
+                                <button
+                                  onClick={() => addToCart(product.id)}
+                                  className="w-8 h-8 rounded-lg bg-charcoal hover:bg-charcoal-light text-flour flex items-center justify-center font-bold text-sm shadow-sm transition-colors"
+                                  aria-label={`Agregar una unidad de ${product.nombre}`}
+                                >
+                                  <Plus className="w-3.5 h-3.5" />
+                                </button>
+                              </div>
                             </div>
-                          </div>
-                        ) : (
-                          <button
-                            onClick={() => addToCart(product.id)}
-                            className="w-full py-2.5 px-4 rounded-xl bg-flour hover:bg-charcoal text-charcoal hover:text-flour border border-craft-300 hover:border-charcoal text-xs font-bold uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 shadow-sm"
-                          >
-                            <Plus className="w-4 h-4 text-cometoRed group-hover:text-cometoYellow transition-colors" />
-                            <span>Agregar al Pedido</span>
-                          </button>
-                        )}
-                      </div>
+                          ) : (
+                            <button
+                              onClick={() => addToCart(product.id)}
+                              className="w-full py-2.5 px-4 rounded-xl bg-flour hover:bg-charcoal text-charcoal hover:text-flour border border-craft-300 hover:border-charcoal text-xs font-bold uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 shadow-sm"
+                            >
+                              <Plus className="w-4 h-4 text-cometoRed group-hover:text-cometoYellow transition-colors" />
+                              <span>Agregar al Pedido</span>
+                            </button>
+                          )}
+                        </div>
+                      ) : (
+                        <div className="pt-4 border-t border-craft-200/80 flex items-center justify-between gap-3">
+                          <span className="text-xs font-bold text-charcoal">
+                            Agotado
+                          </span>
+                        </div>
+                      )}
                     </div>
                   );
                 })}
