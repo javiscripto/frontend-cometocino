@@ -23,6 +23,9 @@ export default function OrderSection() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [storeStatus, setStoreStatus] = useState(null);
+  const [storeStatusLoading, setStoreStatusLoading] = useState(true);
+  const [storeStatusError, setStoreStatusError] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
   // Cart state: { [productId]: quantity }
@@ -112,8 +115,33 @@ export default function OrderSection() {
     setLoading(false);
   };
 
+  const fetchStoreStatus = async () => {
+    setStoreStatusLoading(true);
+    setStoreStatusError("");
+
+    try {
+      const response = await fetch("/api/v1/store/status", {
+        headers: { Accept: "application/json" },
+        cache: "no-store",
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.data) {
+        throw new Error("No se pudo consultar el horario de atención.");
+      }
+      setStoreStatus(result.data);
+    } catch (err) {
+      setStoreStatus(null);
+      setStoreStatusError(err.message || "No se pudo consultar el horario.");
+    } finally {
+      setStoreStatusLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchProducts();
+    fetchStoreStatus();
+    const refreshId = window.setInterval(fetchStoreStatus, 60_000);
+    return () => window.clearInterval(refreshId);
   }, []);
 
   // Filter products by search term
@@ -184,7 +212,12 @@ export default function OrderSection() {
   // Submit the order to the API
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
-    if (cartItems.length === 0 || orderSubmitting) return;
+    if (
+      cartItems.length === 0 ||
+      orderSubmitting ||
+      !storeStatus?.acceptingOrders
+    )
+      return;
 
     setOrderSubmitting(true);
     setOrderError("");
@@ -226,6 +259,7 @@ export default function OrderSection() {
       setCart({});
     } catch (err) {
       setOrderError(err.message || "No se pudo conectar con el servidor.");
+      fetchStoreStatus();
     } finally {
       setOrderSubmitting(false);
     }
@@ -615,6 +649,27 @@ export default function OrderSection() {
                   Datos de Entrega y Contacto
                 </h4>
 
+                <p
+                  role="status"
+                  className={`text-xs font-semibold ${storeStatus?.acceptingOrders ? "text-emerald-700" : "text-charcoal/60"}`}
+                >
+                  {storeStatusLoading
+                    ? "Consultando horario de atención..."
+                    : storeStatusError ||
+                    storeStatus?.message ||
+                    "No se pudo consultar el horario."}
+                  {storeStatus && !storeStatusLoading && (
+                    <span className="block mt-1 font-bold">
+                      Horario de hoy:{" "}
+                      {storeStatus.today.intervals.length
+                        ? storeStatus.today.intervals
+                          .map(({ open, close }) => `${open}–${close}`)
+                          .join(", ")
+                        : "cerrado"}
+                    </span>
+                  )}
+                </p>
+
                 <div>
                   <input
                     type="text"
@@ -668,14 +723,23 @@ export default function OrderSection() {
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  disabled={cartItems.length === 0 || orderSubmitting}
+                  disabled={
+                    cartItems.length === 0 ||
+                    orderSubmitting ||
+                    storeStatusLoading ||
+                    !storeStatus?.acceptingOrders
+                  }
                   className="w-full mt-2 py-3.5 px-5 rounded-2xl bg-charcoal hover:bg-charcoal-light text-flour font-bold text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 shadow-warm hover:shadow-warm-lg disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <Send className="w-4 h-4 text-cometoYellow" />
                   <span>
                     {orderSubmitting
                       ? "Enviando pedido..."
-                      : "Confirmar pedido"}
+                      : storeStatusLoading
+                        ? "Consultando horario..."
+                        : storeStatus?.acceptingOrders
+                          ? "Confirmar pedido"
+                          : "fuera de horario"}
                   </span>
                 </button>
 
