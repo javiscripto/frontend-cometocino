@@ -51,7 +51,7 @@ export default function OrderSection() {
           latitude: coords.latitude,
           longitude: coords.longitude,
         });
-        setLocationStatus("Ubicación lista para compartir.");
+        setLocationStatus("Ubicación obtenida.");
       },
       (geoError) => {
         const message =
@@ -66,13 +66,11 @@ export default function OrderSection() {
     );
   };
 
-  // Fetch products from endpoint http://localhost/api/get_product
   const fetchProducts = async () => {
     setLoading(true);
     setError(null);
 
-    // List of candidate endpoints to attempt
-    const backEndURL = "http://localhost:3000/api/v1/products";
+    const backEndURL = `/api/v1/products`;
 
     let fetchedData = null;
     let errorDetails = null;
@@ -193,7 +191,7 @@ export default function OrderSection() {
     setOrderPlaced(false);
 
     try {
-      const response = await fetch("http://localhost:3000/api/v1/order", {
+      const response = await fetch("/api/v1/order", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -355,12 +353,46 @@ export default function OrderSection() {
                     >
                       <div>
                         {product.img && (
-                          <div className="mb-5 aspect-[16/10] overflow-hidden rounded-xl bg-craft-100 border border-craft-200/80">
+                          <div
+                            className="group/image relative mb-5 aspect-[16/10] overflow-hidden rounded-xl bg-craft-100 border border-craft-200/80 cursor-zoom-in"
+                            onMouseMove={(event) => {
+                              const bounds =
+                                event.currentTarget.getBoundingClientRect();
+                              const x =
+                                ((event.clientX - bounds.left) / bounds.width) *
+                                50;
+                              const y =
+                                ((event.clientY - bounds.top) / bounds.height) *
+                                10;
+                              event.currentTarget.style.setProperty(
+                                "--zoom-x",
+                                `${x}%`,
+                              );
+                              event.currentTarget.style.setProperty(
+                                "--zoom-y",
+                                `${y}%`,
+                              );
+                            }}
+                            onMouseLeave={(event) => {
+                              event.currentTarget.style.setProperty(
+                                "--zoom-x",
+                                "50%",
+                              );
+                              event.currentTarget.style.setProperty(
+                                "--zoom-y",
+                                "50%",
+                              );
+                            }}
+                          >
                             <img
                               src={product.img}
                               alt={product.nombre}
                               loading="lazy"
-                              className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                              className="h-full w-full object-contain object-center transition-transform duration-150 ease-out group-hover/image:scale-[1.8]"
+                              style={{
+                                transformOrigin:
+                                  "var(--zoom-x, 50%) var(--zoom-y, 50%)",
+                              }}
                             />
                           </div>
                         )}
@@ -611,7 +643,7 @@ export default function OrderSection() {
                     onClick={shareCurrentLocation}
                     className="w-full px-3.5 py-2.5 bg-craft-50 border border-craft-300 rounded-xl text-xs font-bold text-charcoal hover:bg-craft-100 focus:outline-none focus:ring-2 focus:ring-cometoBlue flex items-center justify-center gap-2 transition-colors"
                   >
-                    <MapPin className="w-4 h-4 text-cometoRed" />
+                    <MapPin className="w-4 h-4 text-cometoGreen" />
                     {currentLocation
                       ? "ubicación compartida"
                       : "Compartir mi ubicación actual"}
@@ -626,7 +658,7 @@ export default function OrderSection() {
                 <div>
                   <textarea
                     rows={2}
-                    placeholder="Instrucciones especiales o notas..."
+                    placeholder="Instrucciones adicionales como horario de entrega, ubicación de entrega, etc."
                     value={orderNotes}
                     onChange={(e) => setOrderNotes(e.target.value)}
                     className="w-full px-3.5 py-2 bg-craft-50 border border-craft-300 rounded-xl text-xs text-charcoal placeholder-charcoal/40 focus:outline-none focus:ring-2 focus:ring-cometoBlue focus:bg-flour resize-none"
@@ -640,7 +672,11 @@ export default function OrderSection() {
                   className="w-full mt-2 py-3.5 px-5 rounded-2xl bg-charcoal hover:bg-charcoal-light text-flour font-bold text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 shadow-warm hover:shadow-warm-lg disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <Send className="w-4 h-4 text-cometoYellow" />
-                  <span>{orderSubmitting ? "Enviando pedido..." : "Confirmar pedido"}</span>
+                  <span>
+                    {orderSubmitting
+                      ? "Enviando pedido..."
+                      : "Confirmar pedido"}
+                  </span>
                 </button>
 
                 {orderError && (
@@ -659,7 +695,8 @@ export default function OrderSection() {
                 )}
 
                 <p className="text-[11px] text-center text-charcoal/50 pt-1">
-                  Tu pedido se registrará para coordinar su preparación y entrega.
+                  Tu pedido se registrará para coordinar su preparación y
+                  entrega.
                 </p>
               </form>
             </div>
