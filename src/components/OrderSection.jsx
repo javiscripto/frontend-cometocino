@@ -16,8 +16,49 @@ import {
   Clock,
   Phone,
   MapPin,
+  FileText,
+  Flame,
+  Car,
+  CheckCircle2,
 } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
+
+function getOrderStatusVisual(status) {
+  const normalizedStatus = String(status)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[_-]/g, " ");
+
+  if (normalizedStatus.includes("prepar") || normalizedStatus.includes("cocin")) {
+    return { Icon: Flame, color: "text-cometoRed" };
+  }
+  if (
+    normalizedStatus.includes("camino") ||
+    normalizedStatus.includes("ruta") ||
+    normalizedStatus.includes("repart") ||
+    normalizedStatus.includes("transit")
+  ) {
+    return { Icon: Car, color: "text-cometoBlue-dark" };
+  }
+  if (
+    normalizedStatus.includes("entreg") ||
+    normalizedStatus.includes("complet") ||
+    normalizedStatus.includes("deliver")
+  ) {
+    return { Icon: CheckCircle2, color: "text-emerald-600" };
+  }
+  if (
+    normalizedStatus.includes("recibid") ||
+    normalizedStatus.includes("received") ||
+    normalizedStatus.includes("pendient") ||
+    normalizedStatus.includes("pending")
+  ) {
+    return { Icon: FileText, color: "text-cometoBlue-dark" };
+  }
+
+  return { Icon: Clock, color: "text-charcoal/60" };
+}
 
 export default function OrderSection() {
   const [products, setProducts] = useState([]);
@@ -40,6 +81,13 @@ export default function OrderSection() {
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [orderSubmitting, setOrderSubmitting] = useState(false);
   const [orderError, setOrderError] = useState("");
+  const [createdOrderId, setCreatedOrderId] = useState("");
+  const [trackingInput, setTrackingInput] = useState("");
+  const [trackingOrderId, setTrackingOrderId] = useState("");
+  const [trackingAttempt, setTrackingAttempt] = useState(0);
+  const [trackedOrder, setTrackedOrder] = useState(null);
+  const [trackingLoading, setTrackingLoading] = useState(false);
+  const [trackingError, setTrackingError] = useState("");
 
   const shareCurrentLocation = () => {
     if (!navigator.geolocation) {
@@ -144,6 +192,60 @@ export default function OrderSection() {
     const refreshId = window.setInterval(fetchStoreStatus, 60_000);
     return () => window.clearInterval(refreshId);
   }, []);
+
+  useEffect(() => {
+    if (!trackingOrderId) return undefined;
+
+    let active = true;
+    setTrackedOrder(null);
+    const fetchOrderStatus = async () => {
+      setTrackingLoading(true);
+      setTrackingError("");
+
+      try {
+        const response = await fetch(
+          `/api/v1/order/${encodeURIComponent(trackingOrderId)}`,
+          { headers: { Accept: "application/json" }, cache: "no-store" },
+        );
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) {
+          throw new Error(result.error || "No se pudo consultar esta orden.");
+        }
+
+        const order =
+          result.data?.order ?? result.data ?? result.order ?? result;
+        const status = order.status ?? order.orderStatus ?? order.estado;
+        if (!status) {
+          throw new Error(
+            "La respuesta del servidor no incluye el estado de la orden.",
+          );
+        }
+
+        if (active) {
+          setTrackedOrder({
+            id: String(order._id ?? order.id ?? trackingOrderId),
+            status: typeof status === "string" ? status : status.label ?? String(status),
+            updatedAt: order.updatedAt ?? order.updated_at ?? order.statusUpdatedAt,
+          });
+        }
+      } catch (err) {
+        if (active) {
+          setTrackingError(
+            err.message || "No se pudo consultar el estado de la orden.",
+          );
+        }
+      } finally {
+        if (active) setTrackingLoading(false);
+      }
+    };
+
+    fetchOrderStatus();
+    const refreshId = window.setInterval(fetchOrderStatus, 30_000);
+    return () => {
+      active = false;
+      window.clearInterval(refreshId);
+    };
+  }, [trackingOrderId, trackingAttempt]);
 
   // Filter products by search term
   const filteredProducts = useMemo(() => {
@@ -250,6 +352,20 @@ export default function OrderSection() {
         throw new Error(result.error || "No se pudo registrar el pedido.");
       }
 
+      const createdOrder =
+        result.data?.order ?? result.data ?? result.order ?? result;
+      const createdOrderId =
+        createdOrder._id ?? createdOrder.id ?? createdOrder.orderId;
+      if (createdOrderId) {
+        const id = String(createdOrderId);
+        setCreatedOrderId(id);
+        setTrackingInput(id);
+        setTrackingOrderId(id);
+        setTrackingAttempt((attempt) => attempt + 1);
+      } else {
+        setCreatedOrderId("");
+      }
+
       confetti({
         particleCount: 90,
         spread: 75,
@@ -265,6 +381,19 @@ export default function OrderSection() {
       setOrderSubmitting(false);
     }
   };
+
+  const handleTrackOrder = (event) => {
+    event.preventDefault();
+    const id = trackingInput.trim();
+    if (!id) return;
+    setTrackingOrderId(id);
+    setTrackingAttempt((attempt) => attempt + 1);
+  };
+
+  const trackingStatusVisual = trackedOrder
+    ? getOrderStatusVisual(trackedOrder.status)
+    : null;
+  const TrackingStatusIcon = trackingStatusVisual?.Icon;
 
   return (
     <section
@@ -763,9 +892,77 @@ export default function OrderSection() {
                     <Check className="w-4 h-4 text-emerald-600 shrink-0" />
                     <span>
                       ¡Pedido enviado correctamente! Ya quedó registrado.
+                      {createdOrderId && (
+                        <span className="block mt-1 font-bold">
+                          Número de orden: {createdOrderId}
+                        </span>
+                      )}
                     </span>
                   </div>
                 )}
+
+                <div className="p-4 rounded-2xl bg-craft-50 border border-craft-200 space-y-3">
+                  <div className="flex items-center gap-2">
+                    <Clock className="w-4 h-4 text-cometoRed" />
+                    <h4 className="text-xs font-black uppercase tracking-wider text-charcoal">
+                      Seguimiento de orden
+                    </h4>
+                  </div>
+                  <form onSubmit={handleTrackOrder} className="flex gap-2">
+                    <input
+                      type="text"
+                      value={trackingInput}
+                      onChange={(event) => setTrackingInput(event.target.value)}
+                      placeholder="Ingresa el ID de tu orden"
+                      aria-label="ID de la orden para seguimiento"
+                      required
+                      className="min-w-0 flex-1 px-3 py-2.5 bg-flour border border-craft-300 rounded-xl text-xs text-charcoal placeholder-charcoal/40 focus:outline-none focus:ring-2 focus:ring-cometoBlue"
+                    />
+                    <button
+                      type="submit"
+                      disabled={trackingLoading}
+                      className="shrink-0 px-3.5 py-2.5 rounded-xl bg-charcoal text-flour text-xs font-bold hover:bg-charcoal-light disabled:opacity-60 flex items-center gap-2"
+                    >
+                      <RefreshCw className={`w-3.5 h-3.5 ${trackingLoading ? "animate-spin" : ""}`} />
+                      Consultar
+                    </button>
+                  </form>
+
+                  {trackingLoading && !trackedOrder && (
+                    <p role="status" className="text-xs text-charcoal/60">
+                      Consultando el estado de la orden...
+                    </p>
+                  )}
+                  {trackingError && (
+                    <p role="alert" className="text-xs text-red-700">
+                      {trackingError}
+                    </p>
+                  )}
+                  {trackedOrder && (
+                    <div role="status" className="flex flex-wrap items-center justify-between gap-2 pt-1">
+                      <div>
+                        <p className="text-[11px] text-charcoal/60">
+                          Orden {trackedOrder.id}
+                        </p>
+                        <p className="flex items-center gap-1.5 text-sm font-bold text-charcoal capitalize">
+                          <TrackingStatusIcon
+                            aria-hidden="true"
+                            className={`h-4 w-4 shrink-0 ${trackingStatusVisual.color}`}
+                          />
+                          Estado: {trackedOrder.status.replaceAll("_", " ")}
+                        </p>
+                      </div>
+                      {trackedOrder.updatedAt && !Number.isNaN(Date.parse(trackedOrder.updatedAt)) && (
+                        <p className="text-[10px] text-charcoal/50">
+                          Actualizado {new Date(trackedOrder.updatedAt).toLocaleString("es-CL")}
+                        </p>
+                      )}
+                    </div>
+                  )}
+                  <p className="text-[10px] text-charcoal/50">
+                    El estado se actualiza automáticamente cada 30 segundos.
+                  </p>
+                </div>
 
                 <p className="text-[11px] text-center text-charcoal/50 pt-1">
                   Tu pedido se registrará para coordinar su preparación y
