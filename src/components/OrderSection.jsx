@@ -60,10 +60,13 @@ function getOrderStatusVisual(status) {
   return { Icon: Clock, color: "text-charcoal/60" };
 }
 
-const API_HEADERS = {
-  Accept: "application/json",
-  "ngrok-skip-browser-warning": "true",
-};
+const API_BASE_URL = (
+  import.meta.env.VITE_BACKEND_URL ||
+  "https://cometocino-backend.onrender.com"
+).replace(/\/+$/, "");
+
+const API_HEADERS = { Accept: "application/json" };
+const apiUrl = (path) => `${API_BASE_URL}${path}`;
 
 export default function OrderSection() {
   const [products, setProducts] = useState([]);
@@ -126,10 +129,8 @@ export default function OrderSection() {
     setLoading(true);
     setError(null);
 
-    const backEndURL = `/api/v1/products`;
-
     try {
-      const response = await fetch(backEndURL, {
+      const response = await fetch(apiUrl("/api/v1/products"), {
         headers: API_HEADERS,
       });
 
@@ -139,12 +140,7 @@ export default function OrderSection() {
 
       const contentType = response.headers.get("content-type");
       if (contentType && !contentType.includes("application/json")) {
-        const text = await response.text();
-        throw new Error(
-          text.includes("ngrok")
-            ? "Advertencia de ngrok detectada al consultar productos."
-            : "La respuesta del servidor no tiene formato JSON."
-        );
+        throw new Error("La respuesta del servidor no tiene formato JSON.");
       }
 
       const json = await response.json();
@@ -186,7 +182,7 @@ export default function OrderSection() {
     setStoreStatusError("");
 
     try {
-      const response = await fetch("/api/v1/store/status", {
+      const response = await fetch(apiUrl("/api/v1/store/status"), {
         headers: API_HEADERS,
         cache: "no-store",
       });
@@ -228,7 +224,7 @@ export default function OrderSection() {
 
       try {
         const response = await fetch(
-          `/api/v1/order/${encodeURIComponent(trackingOrderId)}`,
+          apiUrl(`/api/v1/order/${encodeURIComponent(trackingOrderId)}`),
           { headers: API_HEADERS, cache: "no-store" },
         );
         const result = await response.json().catch(() => ({}));
@@ -352,7 +348,7 @@ export default function OrderSection() {
     setOrderPlaced(false);
 
     try {
-      const response = await fetch("/api/v1/order", {
+      const response = await fetch(apiUrl("/api/v1/order"), {
         method: "POST",
         headers: {
           ...API_HEADERS,
