@@ -60,6 +60,11 @@ function getOrderStatusVisual(status) {
   return { Icon: Clock, color: "text-charcoal/60" };
 }
 
+const API_HEADERS = {
+  Accept: "application/json",
+  "ngrok-skip-browser-warning": "true",
+};
+
 export default function OrderSection() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -123,45 +128,57 @@ export default function OrderSection() {
 
     const backEndURL = `/api/v1/products`;
 
-    let fetchedData = null;
-    let errorDetails = null;
-
     try {
       const response = await fetch(backEndURL, {
-        headers: {
-          Accept: "application/json",
-        },
+        headers: API_HEADERS,
       });
 
-      if (response.ok) {
-        const json = await response.json();
-        fetchedData = json.data;
+      if (!response.ok) {
+        throw new Error(`Error en el servidor (${response.status}) al consultar productos.`);
+      }
+
+      const contentType = response.headers.get("content-type");
+      if (contentType && !contentType.includes("application/json")) {
+        const text = await response.text();
+        throw new Error(
+          text.includes("ngrok")
+            ? "Advertencia de ngrok detectada al consultar productos."
+            : "La respuesta del servidor no tiene formato JSON."
+        );
+      }
+
+      const json = await response.json();
+      const rawProducts = Array.isArray(json?.data)
+        ? json.data
+        : Array.isArray(json)
+          ? json
+          : null;
+
+      if (rawProducts && Array.isArray(rawProducts)) {
+        // Exclusivamente obtenemos el id, nombre, descripcion y el precio
+        const cleanProducts = rawProducts.map((item) => ({
+          // MongoDB ObjectId values must stay strings; converting them to Number
+          // makes the cart unable to match the product again.
+          id: String(item._id ?? item.id),
+          img: item.imageUrl,
+          nombre: item.name || item.nombre || `Producto #${item.id}`,
+          descripcion: item.description || item.descripcion || "",
+          precio: Number(
+            item.salePrice ?? item.actual_sale_price ?? item.precio ?? 0,
+          ),
+          disponible: item.active ?? item.disponible ?? true,
+        }));
+
+        setProducts(cleanProducts);
+      } else {
+        setError("Ups! Algo salió mal al intentar obtener los productos.");
       }
     } catch (err) {
-      errorDetails = err;
+      console.error("Error en fetchProducts:", err);
+      setError(err.message || "Ups! Algo salió mal al intentar obtener los productos.");
+    } finally {
+      setLoading(false);
     }
-
-    if (fetchedData && Array.isArray(fetchedData)) {
-      // Exclusivamente obtenemos el id, nombre, descripcion y el precio
-      const cleanProducts = fetchedData.map((item) => ({
-        // MongoDB ObjectId values must stay strings; converting them to Number
-        // makes the cart unable to match the product again.
-        id: String(item._id ?? item.id),
-        img: item.imageUrl,
-        nombre: item.name || item.nombre || `Producto #${item.id}`,
-        descripcion: item.description || item.descripcion || "",
-        precio: Number(
-          item.salePrice ?? item.actual_sale_price ?? item.precio ?? 0,
-        ),
-        disponible: item.active ?? item.disponible ?? true,
-      }));
-
-      setProducts(cleanProducts);
-    } else {
-      setError("ups! algo salió mal al intentar obtener los productos.");
-    }
-
-    setLoading(false);
   };
 
   const fetchStoreStatus = async () => {
@@ -170,15 +187,22 @@ export default function OrderSection() {
 
     try {
       const response = await fetch("/api/v1/store/status", {
-        headers: { Accept: "application/json" },
+        headers: API_HEADERS,
         cache: "no-store",
       });
+
+      const contentType = response.headers.get("content-type");
+      if (contentType && !contentType.includes("application/json")) {
+        throw new Error("Respuesta no válida del servidor.");
+      }
+
       const result = await response.json().catch(() => ({}));
       if (!response.ok || !result.data) {
-        throw new Error("No se pudo consultar el horario de atención.");
+        throw new Error(result.error || "No se pudo consultar el horario de atención.");
       }
       setStoreStatus(result.data);
     } catch (err) {
+      console.error("Error en fetchStoreStatus:", err);
       setStoreStatus(null);
       setStoreStatusError(err.message || "No se pudo consultar el horario.");
     } finally {
@@ -205,7 +229,7 @@ export default function OrderSection() {
       try {
         const response = await fetch(
           `/api/v1/order/${encodeURIComponent(trackingOrderId)}`,
-          { headers: { Accept: "application/json" }, cache: "no-store" },
+          { headers: API_HEADERS, cache: "no-store" },
         );
         const result = await response.json().catch(() => ({}));
         if (!response.ok) {
@@ -229,6 +253,7 @@ export default function OrderSection() {
           });
         }
       } catch (err) {
+        console.error("Error en fetchOrderStatus:", err);
         if (active) {
           setTrackingError(
             err.message || "No se pudo consultar el estado de la orden.",
@@ -330,7 +355,7 @@ export default function OrderSection() {
       const response = await fetch("/api/v1/order", {
         method: "POST",
         headers: {
-          Accept: "application/json",
+          ...API_HEADERS,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({

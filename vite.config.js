@@ -9,11 +9,15 @@ export default defineConfig({
   server: {
     port: 5173,
     host: true,
-    allowedHosts: true, // permitir acceso desde cualquier dominio ngrok-free
+    allowedHosts: true,
     proxy: {
-      ["/api/v1/"]: {
-        target: "http://localhost:3000/",
+      "/api/v1": {
+        target: "https://cometocino-backend.onrender.com",
         changeOrigin: true,
+        secure: false,
+        headers: {
+          "ngrok-skip-browser-warning": "true",
+        },
       },
     },
   },
