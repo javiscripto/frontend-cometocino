@@ -12,7 +12,7 @@ export default defineConfig({
     allowedHosts: true, // permitir acceso desde cualquier dominio ngrok-free
     proxy: {
       ["/api/v1/"]: {
-        target: "http://localhost:3000",
+        target: "http://localhost:3000/",
         changeOrigin: true,
       },
     },
