@@ -30,7 +30,10 @@ function getOrderStatusVisual(status) {
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[_-]/g, " ");
 
-  if (normalizedStatus.includes("prepar") || normalizedStatus.includes("cocin")) {
+  if (
+    normalizedStatus.includes("prepar") ||
+    normalizedStatus.includes("cocin")
+  ) {
     return { Icon: Flame, color: "text-cometoRed" };
   }
   if (
@@ -61,11 +64,9 @@ function getOrderStatusVisual(status) {
 }
 
 const API_BASE_URL = (
-  import.meta.env.VITE_BACKEND_URL ||
-  "https://cometocino-backend.onrender.com"
+  import.meta.env.VITE_BACKEND_URL || "https://cometocino-backend.onrender.com"
 ).replace(/\/+$/, "");
 
-const API_HEADERS = { Accept: "application/json" };
 const apiUrl = (path) => `${API_BASE_URL}${path}`;
 
 export default function OrderSection() {
@@ -130,12 +131,12 @@ export default function OrderSection() {
     setError(null);
 
     try {
-      const response = await fetch(apiUrl("/api/v1/products"), {
-        headers: API_HEADERS,
-      });
+      const response = await fetch(apiUrl("/api/v1/products"));
 
       if (!response.ok) {
-        throw new Error(`Error en el servidor (${response.status}) al consultar productos.`);
+        throw new Error(
+          `Error en el servidor (${response.status}) al consultar productos.`,
+        );
       }
 
       const contentType = response.headers.get("content-type");
@@ -171,7 +172,9 @@ export default function OrderSection() {
       }
     } catch (err) {
       console.error("Error en fetchProducts:", err);
-      setError(err.message || "Ups! Algo salió mal al intentar obtener los productos.");
+      setError(
+        err.message || "Ups! Algo salió mal al intentar obtener los productos.",
+      );
     } finally {
       setLoading(false);
     }
@@ -183,7 +186,6 @@ export default function OrderSection() {
 
     try {
       const response = await fetch(apiUrl("/api/v1/store/status"), {
-        headers: API_HEADERS,
         cache: "no-store",
       });
 
@@ -194,7 +196,9 @@ export default function OrderSection() {
 
       const result = await response.json().catch(() => ({}));
       if (!response.ok || !result.data) {
-        throw new Error(result.error || "No se pudo consultar el horario de atención.");
+        throw new Error(
+          result.error || "No se pudo consultar el horario de atención.",
+        );
       }
       setStoreStatus(result.data);
     } catch (err) {
@@ -225,7 +229,7 @@ export default function OrderSection() {
       try {
         const response = await fetch(
           apiUrl(`/api/v1/order/${encodeURIComponent(trackingOrderId)}`),
-          { headers: API_HEADERS, cache: "no-store" },
+          { cache: "no-store" },
         );
         const result = await response.json().catch(() => ({}));
         if (!response.ok) {
@@ -244,8 +248,12 @@ export default function OrderSection() {
         if (active) {
           setTrackedOrder({
             id: String(order._id ?? order.id ?? trackingOrderId),
-            status: typeof status === "string" ? status : status.label ?? String(status),
-            updatedAt: order.updatedAt ?? order.updated_at ?? order.statusUpdatedAt,
+            status:
+              typeof status === "string"
+                ? status
+                : (status.label ?? String(status)),
+            updatedAt:
+              order.updatedAt ?? order.updated_at ?? order.statusUpdatedAt,
           });
         }
       } catch (err) {
@@ -351,7 +359,6 @@ export default function OrderSection() {
       const response = await fetch(apiUrl("/api/v1/order"), {
         method: "POST",
         headers: {
-          ...API_HEADERS,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -944,7 +951,9 @@ export default function OrderSection() {
                       disabled={trackingLoading}
                       className="shrink-0 px-3.5 py-2.5 rounded-xl bg-charcoal text-flour text-xs font-bold hover:bg-charcoal-light disabled:opacity-60 flex items-center gap-2"
                     >
-                      <RefreshCw className={`w-3.5 h-3.5 ${trackingLoading ? "animate-spin" : ""}`} />
+                      <RefreshCw
+                        className={`w-3.5 h-3.5 ${trackingLoading ? "animate-spin" : ""}`}
+                      />
                       Consultar
                     </button>
                   </form>
@@ -960,7 +969,10 @@ export default function OrderSection() {
                     </p>
                   )}
                   {trackedOrder && (
-                    <div role="status" className="flex flex-wrap items-center justify-between gap-2 pt-1">
+                    <div
+                      role="status"
+                      className="flex flex-wrap items-center justify-between gap-2 pt-1"
+                    >
                       <div>
                         <p className="text-[11px] text-charcoal/60">
                           Orden {trackedOrder.id}
@@ -973,11 +985,15 @@ export default function OrderSection() {
                           Estado: {trackedOrder.status.replaceAll("_", " ")}
                         </p>
                       </div>
-                      {trackedOrder.updatedAt && !Number.isNaN(Date.parse(trackedOrder.updatedAt)) && (
-                        <p className="text-[10px] text-charcoal/50">
-                          Actualizado {new Date(trackedOrder.updatedAt).toLocaleString("es-CL")}
-                        </p>
-                      )}
+                      {trackedOrder.updatedAt &&
+                        !Number.isNaN(Date.parse(trackedOrder.updatedAt)) && (
+                          <p className="text-[10px] text-charcoal/50">
+                            Actualizado{" "}
+                            {new Date(trackedOrder.updatedAt).toLocaleString(
+                              "es-CL",
+                            )}
+                          </p>
+                        )}
                     </div>
                   )}
                   <p className="text-[10px] text-charcoal/50">
