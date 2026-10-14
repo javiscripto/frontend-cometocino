@@ -62,7 +62,7 @@ export default function MonthlyOffersSlider() {
             <img
               src={offer.image}
               alt={offer.alt}
-              className="absolute inset-0 h-full w-full object-cover"
+              className="absolute inset-0 h-full w-full object-contain"
               loading={index === 0 ? "eager" : "lazy"}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-charcoal/90 via-charcoal/60 to-charcoal/10" />
@@ -72,7 +72,7 @@ export default function MonthlyOffersSlider() {
                 <Tag className="h-3.5 w-3.5" />
                 Ofertas del mes
               </span>
-              <h1 className="mb-4 font-serif text-4xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+              <h1 className="mb-4 font-serif text-1xl font-black leading-tight tracking-tight sm:text-5xl lg:text-2xl">
                 {offer.title}
               </h1>
               <p className="mb-8 max-w-lg text-sm leading-relaxed text-flour/85 sm:text-lg">
