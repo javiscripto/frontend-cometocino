@@ -9,6 +9,7 @@ import HowItWorks from "./components/HowItWorks";
 import ProcessStory from "./components/ProcessStory";
 import PizzaMenu from "./components/PizzaMenu";
 import OrderSection from "./components/OrderSection";
+import MonthlyOffersSlider from "./components/MonthlyOffersSlider";
 import PackagesSection from "./components/PackagesSection";
 import Calculator from "./components/Calculator";
 import FaqSection from "./components/FaqSection";
@@ -67,7 +68,15 @@ function AppShell() {
       <Navbar />
       <main id="main-content">
         <Routes>
-          <Route path="/pedir-online" element={<OrderSection />} />
+          <Route
+            path="/pedir-online"
+            element={
+              <>
+                <MonthlyOffersSlider />
+                <OrderSection />
+              </>
+            }
+          />
           <Route
             path="/servicios"
             element={
