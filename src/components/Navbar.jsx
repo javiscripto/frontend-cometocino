@@ -9,10 +9,9 @@ const navLinks = [
 ];
 
 const linkClass = ({ isActive }) =>
-  `text-sm font-semibold transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-cometoBlue after:transition-all ${
-    isActive
-      ? "text-charcoal after:w-full"
-      : "text-charcoal/80 hover:text-charcoal after:w-0 hover:after:w-full"
+  `text-sm font-semibold transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-cometoBlue after:transition-all ${isActive
+    ? "text-charcoal after:w-full"
+    : "text-charcoal/80 hover:text-charcoal after:w-0 hover:after:w-full"
   }`;
 
 export default function Navbar() {
@@ -29,14 +28,17 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
           ? "bg-[#FAF6F0]/95 backdrop-blur-md shadow-warm py-2.5 border-b border-craft-300/40"
           : "bg-[#FAF6F0]/80 backdrop-blur-sm py-4 border-b border-transparent"
-      }`}
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
-        <NavLink to="/quienes-somos" onClick={closeMenu} className="flex items-center gap-3 group shrink-0">
+        <NavLink
+          to="/pedir-online"
+          onClick={closeMenu}
+          className="flex items-center gap-3 group shrink-0"
+        >
           <img
             src="/images/logoDante_forni.png"
             alt="ComeTocino"
