@@ -78,7 +78,7 @@ function AppShell() {
             }
           />
           <Route path="/quienes-somos" element={<AboutPage />} />
-          <Route path="*" element={<Navigate to="/quienes-somos" replace />} />
+          <Route path="*" element={<Navigate to="/pedir-online" replace />} />
         </Routes>
       </main>
       <Footer />
