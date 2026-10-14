@@ -47,9 +47,9 @@ export default function MonthlyOffersSlider() {
   return (
     <section
       aria-label="Ofertas del mes"
-      className="bg-[#F7F3EB] px-4 pt-28 pb-8 sm:px-6 lg:px-8"
+      className="bg-[#F7F3EB] px-0 pt-24 pb-8 sm:px-6 sm:pt-28 lg:px-8"
     >
-      <div className="relative mx-auto h-[360px] max-w-7xl overflow-hidden rounded-xl  bg-charcoal shadow-warm-lg sm:h-[420px] lg:h-[480px]">
+      <div className="relative mx-auto h-[360px] w-full max-w-7xl overflow-hidden rounded-none bg-charcoal shadow-warm-lg sm:h-[420px] sm:rounded-xl lg:h-[480px]">
         {offers.map((offer, index) => (
           <article
             key={offer.title}
