@@ -68,6 +68,8 @@ const API_BASE_URL = (
 ).replace(/\/+$/, "");
 
 const apiUrl = (path) => `${API_BASE_URL}${path}`;
+const TRACKING_INPUT_KEY = "cometocino:tracking-input";
+const TRACKING_ORDER_KEY = "cometocino:tracking-order-id";
 
 export default function OrderSection() {
   const [products, setProducts] = useState([]);
@@ -91,8 +93,12 @@ export default function OrderSection() {
   const [orderSubmitting, setOrderSubmitting] = useState(false);
   const [orderError, setOrderError] = useState("");
   const [createdOrderId, setCreatedOrderId] = useState("");
-  const [trackingInput, setTrackingInput] = useState("");
-  const [trackingOrderId, setTrackingOrderId] = useState("");
+  const [trackingInput, setTrackingInput] = useState(
+    () => sessionStorage.getItem(TRACKING_INPUT_KEY) ?? "",
+  );
+  const [trackingOrderId, setTrackingOrderId] = useState(
+    () => sessionStorage.getItem(TRACKING_ORDER_KEY) ?? "",
+  );
   const [trackingAttempt, setTrackingAttempt] = useState(0);
   const [trackedOrder, setTrackedOrder] = useState(null);
   const [trackingLoading, setTrackingLoading] = useState(false);
@@ -389,6 +395,8 @@ export default function OrderSection() {
         setCreatedOrderId(id);
         setTrackingInput(id);
         setTrackingOrderId(id);
+        sessionStorage.setItem(TRACKING_INPUT_KEY, id);
+        sessionStorage.setItem(TRACKING_ORDER_KEY, id);
         setTrackingAttempt((attempt) => attempt + 1);
       } else {
         setCreatedOrderId("");
@@ -414,6 +422,8 @@ export default function OrderSection() {
     event.preventDefault();
     const id = trackingInput.trim();
     if (!id) return;
+    sessionStorage.setItem(TRACKING_INPUT_KEY, id);
+    sessionStorage.setItem(TRACKING_ORDER_KEY, id);
     setTrackingOrderId(id);
     setTrackingAttempt((attempt) => attempt + 1);
   };
@@ -929,6 +939,13 @@ export default function OrderSection() {
                   </div>
                 )}
 
+                <p className="text-[11px] text-center text-charcoal/50 pt-1">
+                  Tu pedido se registrará para coordinar su preparación y
+                  entrega.
+                </p>
+              </form>
+
+              <div className="mt-5 border-t border-craft-200 pt-5">
                 <div className="p-4 rounded-2xl bg-craft-50 border border-craft-200 space-y-3">
                   <div className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-cometoRed" />
@@ -939,8 +956,13 @@ export default function OrderSection() {
                   <form onSubmit={handleTrackOrder} className="flex gap-2">
                     <input
                       type="text"
+                      name="orderId"
                       value={trackingInput}
-                      onChange={(event) => setTrackingInput(event.target.value)}
+                      onChange={(event) => {
+                        const value = event.target.value;
+                        setTrackingInput(value);
+                        sessionStorage.setItem(TRACKING_INPUT_KEY, value);
+                      }}
                       placeholder="Ingresa el ID de tu orden"
                       aria-label="ID de la orden para seguimiento"
                       required
@@ -1000,12 +1022,7 @@ export default function OrderSection() {
                     El estado se actualiza automáticamente cada 30 segundos.
                   </p>
                 </div>
-
-                <p className="text-[11px] text-center text-charcoal/50 pt-1">
-                  Tu pedido se registrará para coordinar su preparación y
-                  entrega.
-                </p>
-              </form>
+              </div>
             </div>
           </div>
         </div>
