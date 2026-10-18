@@ -417,10 +417,9 @@ export default function OrderSection() {
       );
       const whatsappMessage = [
         "Hola, acabo de pedir: ",
-        "*Detalle del pedido:*",
         ...orderLines,
         `*Total:* $${totalPrice.toLocaleString("es-CL")} CLP`,
-        "Quiero coordinar el pago y confirmar los detalles de entrega.",
+        "Quiero coordinar el pago y confirmar los detalles de entrega",
       ]
         .filter(Boolean)
         .join("\n");
