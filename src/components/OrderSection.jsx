@@ -408,8 +408,27 @@ export default function OrderSection() {
         origin: { y: 0.6 },
         colors: ["#F6CE6E", "#D94A26", "#7298D7", "#BE9A6B"],
       });
+      const locationUrl = currentLocation
+        ? `https://maps.google.com/?q=${currentLocation.latitude},${currentLocation.longitude}`
+        : "";
+      const orderLines = cartItems.map(
+        (item) =>
+          `• ${item.nombre} x${item.quantity} — $${item.subtotal.toLocaleString("es-CL")} CLP`,
+      );
+      const whatsappMessage = [
+        "Hola, acabo de pedir: ",
+        "*Detalle del pedido:*",
+        ...orderLines,
+        `*Total:* $${totalPrice.toLocaleString("es-CL")} CLP`,
+        "Quiero coordinar el pago y confirmar los detalles de entrega.",
+      ]
+        .filter(Boolean)
+        .join("\n");
+      const whatsappUrl = `https://wa.me/56949869112?text=${encodeURIComponent(whatsappMessage)}`;
+
       setOrderPlaced(true);
       setCart({});
+      window.setTimeout(() => window.location.assign(whatsappUrl), 2000);
     } catch (err) {
       setOrderError(err.message || "No se pudo conectar con el servidor.");
       fetchStoreStatus();
@@ -895,6 +914,12 @@ export default function OrderSection() {
                     className="w-full px-3.5 py-2 bg-craft-50 border border-craft-300 rounded-xl text-xs text-charcoal placeholder-charcoal/40 focus:outline-none focus:ring-2 focus:ring-cometoBlue focus:bg-flour resize-none"
                   />
                 </div>
+                <div>
+                  <p>
+                    Al finalizar el pedido seras redirigido a WhatsApp para
+                    coordinar el pago.
+                  </p>
+                </div>
 
                 {/* Submit Button */}
                 <button
@@ -929,7 +954,8 @@ export default function OrderSection() {
                   <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-2 animate-in fade-in">
                     <Check className="w-4 h-4 text-emerald-600 shrink-0" />
                     <span>
-                      ¡Pedido enviado correctamente! Ya quedó registrado.
+                      Pedido registrado. Abriendo WhatsApp para coordinar el
+                      pago y la entrega...
                       {createdOrderId && (
                         <span className="block mt-1 font-bold">
                           Número de orden: {createdOrderId}
