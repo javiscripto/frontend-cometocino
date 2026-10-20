@@ -23,6 +23,17 @@ import {
 } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 
+function createCaptchaChallenge() {
+  const firstNumber = Math.floor(Math.random() * 8) + 2;
+  const secondNumber = Math.floor(Math.random() * 8) + 2;
+
+  return {
+    firstNumber,
+    secondNumber,
+    result: firstNumber + secondNumber,
+  };
+}
+
 function getOrderStatusVisual(status) {
   const normalizedStatus = String(status)
     .toLowerCase()
@@ -103,6 +114,14 @@ export default function OrderSection() {
   const [trackedOrder, setTrackedOrder] = useState(null);
   const [trackingLoading, setTrackingLoading] = useState(false);
   const [trackingError, setTrackingError] = useState("");
+  const [captchaChallenge, setCaptchaChallenge] = useState(
+    createCaptchaChallenge,
+  );
+  const [captchaAnswer, setCaptchaAnswer] = useState("");
+  const [captchaError, setCaptchaError] = useState("");
+  const captchaIsValid =
+    captchaAnswer.trim() !== "" &&
+    Number(captchaAnswer) === captchaChallenge.result;
 
   const shareCurrentLocation = () => {
     if (!navigator.geolocation) {
@@ -234,7 +253,7 @@ export default function OrderSection() {
 
       try {
         const response = await fetch(
-          apiUrl(`/api/v1/order/${encodeURIComponent(trackingOrderId)}`),
+          apiUrl(`/api/v1/order/${encodeURIComponent(trackingOrderId)}/tracking`),
           { cache: "no-store" },
         );
         const result = await response.json().catch(() => ({}));
@@ -252,6 +271,10 @@ export default function OrderSection() {
         }
 
         if (active) {
+          const completedPurchases = Math.min(
+            5,
+            Math.max(0, Number(order.loyalty?.completedPurchases) || 0),
+          );
           setTrackedOrder({
             id: String(order._id ?? order.id ?? trackingOrderId),
             status:
@@ -260,6 +283,20 @@ export default function OrderSection() {
                 : (status.label ?? String(status)),
             updatedAt:
               order.updatedAt ?? order.updated_at ?? order.statusUpdatedAt,
+            loyalty: order.loyalty
+              ? {
+                  completedPurchases,
+                  totalCompletedPurchases:
+                    Number(order.loyalty.totalCompletedPurchases) || 0,
+                  purchasesUntilReward: Math.max(
+                    0,
+                    Number(order.loyalty.purchasesUntilReward) || 0,
+                  ),
+                  nextPurchaseHasGift: Boolean(
+                    order.loyalty.nextPurchaseHasGift,
+                  ),
+                }
+              : null,
           });
         }
       } catch (err) {
@@ -350,6 +387,10 @@ export default function OrderSection() {
   // Submit the order to the API
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
+    if (!captchaIsValid) {
+      setCaptchaError("Resuelve correctamente la verificación antes de continuar.");
+      return;
+    }
     if (
       cartItems.length === 0 ||
       orderSubmitting ||
@@ -358,6 +399,7 @@ export default function OrderSection() {
       return;
 
     setOrderSubmitting(true);
+    setCaptchaError("");
     setOrderError("");
     setOrderPlaced(false);
 
@@ -913,6 +955,62 @@ export default function OrderSection() {
                     className="w-full px-3.5 py-2 bg-craft-50 border border-craft-300 rounded-xl text-xs text-charcoal placeholder-charcoal/40 focus:outline-none focus:ring-2 focus:ring-cometoBlue focus:bg-flour resize-none"
                   />
                 </div>
+                <div className="rounded-xl border border-craft-300 bg-craft-50 p-3.5 space-y-2.5">
+                  <div className="flex items-center justify-between gap-2">
+                    <label
+                      htmlFor="order-captcha-answer"
+                      className="text-xs font-bold text-charcoal"
+                    >
+                      Verificación anti-spam
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setCaptchaChallenge(createCaptchaChallenge());
+                        setCaptchaAnswer("");
+                        setCaptchaError("");
+                      }}
+                      className="text-[10px] font-semibold text-cometoBlue-dark hover:underline"
+                    >
+                      Nuevo desafío
+                    </button>
+                  </div>
+                  <p className="text-xs text-charcoal/75">
+                    Resuelve: {captchaChallenge.firstNumber} +{" "}
+                    {captchaChallenge.secondNumber} = ?
+                  </p>
+                  <input
+                    id="order-captcha-answer"
+                    type="number"
+                    inputMode="numeric"
+                    value={captchaAnswer}
+                    onChange={(event) => {
+                      setCaptchaAnswer(event.target.value);
+                      setCaptchaError("");
+                    }}
+                    placeholder="Escribe el resultado"
+                    aria-describedby="order-captcha-feedback"
+                    className="w-full px-3.5 py-2.5 bg-flour border border-craft-300 rounded-xl text-xs text-charcoal placeholder-charcoal/40 focus:outline-none focus:ring-2 focus:ring-cometoBlue"
+                  />
+                  <p
+                    id="order-captcha-feedback"
+                    aria-live="polite"
+                    className={`text-[11px] ${
+                      captchaError
+                        ? "text-red-700"
+                        : captchaIsValid
+                          ? "text-emerald-700"
+                          : "text-charcoal/55"
+                    }`}
+                  >
+                    {captchaError ||
+                      (captchaIsValid
+                        ? "Verificación completada."
+                        : captchaAnswer
+                          ? "La respuesta no coincide. Inténtalo otra vez."
+                          : "Completa esta verificación para confirmar el pedido.")}
+                  </p>
+                </div>
                 <div>
                   <p>
                     Al finalizar el pedido seras redirigido a WhatsApp para
@@ -927,7 +1025,8 @@ export default function OrderSection() {
                     cartItems.length === 0 ||
                     orderSubmitting ||
                     storeStatusLoading ||
-                    !storeStatus?.acceptingOrders
+                    !storeStatus?.acceptingOrders ||
+                    !captchaIsValid
                   }
                   className="w-full mt-2 py-3.5 px-5 rounded-2xl bg-charcoal hover:bg-charcoal-light text-flour font-bold text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 shadow-warm hover:shadow-warm-lg disabled:opacity-50 disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98]"
                 >
@@ -1016,31 +1115,87 @@ export default function OrderSection() {
                     </p>
                   )}
                   {trackedOrder && (
-                    <div
-                      role="status"
-                      className="flex flex-wrap items-center justify-between gap-2 pt-1"
-                    >
-                      <div>
-                        <p className="text-[11px] text-charcoal/60">
-                          Orden {trackedOrder.id}
-                        </p>
-                        <p className="flex items-center gap-1.5 text-sm font-bold text-charcoal capitalize">
-                          <TrackingStatusIcon
-                            aria-hidden="true"
-                            className={`h-4 w-4 shrink-0 ${trackingStatusVisual.color}`}
-                          />
-                          Estado: {trackedOrder.status.replaceAll("_", " ")}
-                        </p>
-                      </div>
-                      {trackedOrder.updatedAt &&
-                        !Number.isNaN(Date.parse(trackedOrder.updatedAt)) && (
-                          <p className="text-[10px] text-charcoal/50">
-                            Actualizado{" "}
-                            {new Date(trackedOrder.updatedAt).toLocaleString(
-                              "es-CL",
-                            )}
+                    <div className="space-y-3 pt-1">
+                      <div
+                        role="status"
+                        className="flex flex-wrap items-center justify-between gap-2"
+                      >
+                        <div>
+                          <p className="text-[11px] text-charcoal/60">
+                            Orden {trackedOrder.id}
                           </p>
-                        )}
+                          <p className="flex items-center gap-1.5 text-sm font-bold text-charcoal capitalize">
+                            <TrackingStatusIcon
+                              aria-hidden="true"
+                              className={`h-4 w-4 shrink-0 ${trackingStatusVisual.color}`}
+                            />
+                            Estado: {trackedOrder.status.replaceAll("_", " ")}
+                          </p>
+                        </div>
+                        {trackedOrder.updatedAt &&
+                          !Number.isNaN(Date.parse(trackedOrder.updatedAt)) && (
+                            <p className="text-[10px] text-charcoal/50">
+                              Actualizado{" "}
+                              {new Date(trackedOrder.updatedAt).toLocaleString(
+                                "es-CL",
+                              )}
+                            </p>
+                          )}
+                      </div>
+
+                      {trackedOrder.loyalty && (
+                        <div
+                          className={`rounded-xl border p-3 ${
+                            trackedOrder.loyalty.nextPurchaseHasGift
+                              ? "border-cometoYellow/70 bg-cometoYellow/20"
+                              : "border-craft-200 bg-flour"
+                          }`}
+                          aria-live="polite"
+                        >
+                          {trackedOrder.loyalty.nextPurchaseHasGift ? (
+                            <div className="flex items-start gap-2">
+                              <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-cometoRed" />
+                              <div>
+                                <p className="text-xs font-black text-charcoal">
+                                  ¡Tu próxima compra incluye una pizza de regalo!
+                                </p>
+                                <p className="mt-1 text-[10px] text-charcoal/65">
+                                  Completaste 5 compras. Menciona este beneficio al realizar tu próximo pedido.
+                                </p>
+                              </div>
+                            </div>
+                          ) : (
+                            <div>
+                              <div className="mb-2 flex items-center justify-between gap-2">
+                                <p className="text-xs font-bold text-charcoal">
+                                  Fidelización
+                                </p>
+                                <p className="text-[10px] font-semibold text-charcoal/65">
+                                  {trackedOrder.loyalty.completedPurchases}/5 compras
+                                </p>
+                              </div>
+                              <div
+                                className="h-2 overflow-hidden rounded-full bg-craft-200"
+                                role="progressbar"
+                                aria-label="Progreso para obtener una pizza de regalo"
+                                aria-valuemin={0}
+                                aria-valuemax={5}
+                                aria-valuenow={trackedOrder.loyalty.completedPurchases}
+                              >
+                                <div
+                                  className="h-full rounded-full bg-gradient-to-r from-cometoRed to-cometoYellow transition-all"
+                                  style={{
+                                    width: `${(trackedOrder.loyalty.completedPurchases / 5) * 100}%`,
+                                  }}
+                                />
+                              </div>
+                              <p className="mt-2 text-[10px] text-charcoal/65">
+                                Te faltan {trackedOrder.loyalty.purchasesUntilReward} {trackedOrder.loyalty.purchasesUntilReward === 1 ? "compra" : "compras"} para que tu próxima compra incluya una pizza de regalo.
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </div>
                   )}
                   <p className="text-[10px] text-charcoal/50">
