@@ -4,7 +4,7 @@ import { Menu, X, Phone, Flame, ShoppingBag } from "lucide-react";
 
 const navLinks = [
   { name: "Pedir online", href: "/pedir-online" },
-  { name: "Catering, pizzas y simuladores", href: "/servicios" },
+  { name: "Servicios eventos", href: "/servicios" },
   { name: "Quiénes somos", href: "/quienes-somos" },
 ];
 
@@ -40,17 +40,17 @@ export default function Navbar() {
           className="flex items-center gap-3 group shrink-0"
         >
           <img
-            src="/images/logoDante_forni.png"
+            src="/images/logo.svg"
             alt="ComeTocino"
             className="h-11 w-auto transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3 drop-shadow-sm"
           />
           <span className="flex flex-col">
             <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-charcoal font-serif leading-none">
-              DanteForni
+              ComeTocino
             </span>
             <span className="text-[10px] sm:text-[11px] uppercase tracking-widest font-bold text-craft-800 flex items-center gap-1.5 mt-0.5">
               <span className="w-1.5 h-1.5 rounded-full bg-cometoRed animate-pulse" />
-              Pizza Catering en Vivo
+              Pizza estilo Napoletano
             </span>
           </span>
         </NavLink>
@@ -65,7 +65,7 @@ export default function Navbar() {
 
         <div className="hidden xl:flex items-center gap-3">
           <a
-            href="https://wa.me/56949869112?text=Hola%20!%20Me%20gustar%C3%ADa%20cotizar%20un%20servicio%20de%20pizza%20catering%20para%20un%20evento"
+            href="https://wa.me/56949869112?text=Hola%20!"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-craft-400/50 bg-flour text-charcoal text-xs font-bold hover:bg-craft-100 transition-all shadow-sm"

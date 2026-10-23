@@ -253,7 +253,9 @@ export default function OrderSection() {
 
       try {
         const response = await fetch(
-          apiUrl(`/api/v1/order/${encodeURIComponent(trackingOrderId)}/tracking`),
+          apiUrl(
+            `/api/v1/order/${encodeURIComponent(trackingOrderId)}/tracking`,
+          ),
           { cache: "no-store" },
         );
         const result = await response.json().catch(() => ({}));
@@ -285,17 +287,17 @@ export default function OrderSection() {
               order.updatedAt ?? order.updated_at ?? order.statusUpdatedAt,
             loyalty: order.loyalty
               ? {
-                  completedPurchases,
-                  totalCompletedPurchases:
-                    Number(order.loyalty.totalCompletedPurchases) || 0,
-                  purchasesUntilReward: Math.max(
-                    0,
-                    Number(order.loyalty.purchasesUntilReward) || 0,
-                  ),
-                  nextPurchaseHasGift: Boolean(
-                    order.loyalty.nextPurchaseHasGift,
-                  ),
-                }
+                completedPurchases,
+                totalCompletedPurchases:
+                  Number(order.loyalty.totalCompletedPurchases) || 0,
+                purchasesUntilReward: Math.max(
+                  0,
+                  Number(order.loyalty.purchasesUntilReward) || 0,
+                ),
+                nextPurchaseHasGift: Boolean(
+                  order.loyalty.nextPurchaseHasGift,
+                ),
+              }
               : null,
           });
         }
@@ -388,7 +390,9 @@ export default function OrderSection() {
   const handlePlaceOrder = async (e) => {
     e.preventDefault();
     if (!captchaIsValid) {
-      setCaptchaError("Resuelve correctamente la verificación antes de continuar.");
+      setCaptchaError(
+        "Resuelve correctamente la verificación antes de continuar.",
+      );
       return;
     }
     if (
@@ -995,13 +999,12 @@ export default function OrderSection() {
                   <p
                     id="order-captcha-feedback"
                     aria-live="polite"
-                    className={`text-[11px] ${
-                      captchaError
+                    className={`text-[11px] ${captchaError
                         ? "text-red-700"
                         : captchaIsValid
                           ? "text-emerald-700"
                           : "text-charcoal/55"
-                    }`}
+                      }`}
                   >
                     {captchaError ||
                       (captchaIsValid
@@ -1145,11 +1148,10 @@ export default function OrderSection() {
 
                       {trackedOrder.loyalty && (
                         <div
-                          className={`rounded-xl border p-3 ${
-                            trackedOrder.loyalty.nextPurchaseHasGift
+                          className={`rounded-xl border p-3 ${trackedOrder.loyalty.nextPurchaseHasGift
                               ? "border-cometoYellow/70 bg-cometoYellow/20"
                               : "border-craft-200 bg-flour"
-                          }`}
+                            }`}
                           aria-live="polite"
                         >
                           {trackedOrder.loyalty.nextPurchaseHasGift ? (
@@ -1157,10 +1159,12 @@ export default function OrderSection() {
                               <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-cometoRed" />
                               <div>
                                 <p className="text-xs font-black text-charcoal">
-                                  ¡Tu próxima compra incluye una pizza de regalo!
+                                  ¡Tu próxima compra incluye una pizza de
+                                  regalo!
                                 </p>
                                 <p className="mt-1 text-[10px] text-charcoal/65">
-                                  Completaste 5 compras. Menciona este beneficio al realizar tu próximo pedido.
+                                  Completaste 5 compras. Menciona este beneficio
+                                  al realizar tu próximo pedido.
                                 </p>
                               </div>
                             </div>
@@ -1168,10 +1172,11 @@ export default function OrderSection() {
                             <div>
                               <div className="mb-2 flex items-center justify-between gap-2">
                                 <p className="text-xs font-bold text-charcoal">
-                                  Fidelización
+                                  Lealtad
                                 </p>
                                 <p className="text-[10px] font-semibold text-charcoal/65">
-                                  {trackedOrder.loyalty.completedPurchases}/5 compras
+                                  {trackedOrder.loyalty.completedPurchases}/5
+                                  compras
                                 </p>
                               </div>
                               <div
@@ -1180,7 +1185,9 @@ export default function OrderSection() {
                                 aria-label="Progreso para obtener una pizza de regalo"
                                 aria-valuemin={0}
                                 aria-valuemax={5}
-                                aria-valuenow={trackedOrder.loyalty.completedPurchases}
+                                aria-valuenow={
+                                  trackedOrder.loyalty.completedPurchases
+                                }
                               >
                                 <div
                                   className="h-full rounded-full bg-gradient-to-r from-cometoRed to-cometoYellow transition-all"
@@ -1190,7 +1197,12 @@ export default function OrderSection() {
                                 />
                               </div>
                               <p className="mt-2 text-[10px] text-charcoal/65">
-                                Te faltan {trackedOrder.loyalty.purchasesUntilReward} {trackedOrder.loyalty.purchasesUntilReward === 1 ? "compra" : "compras"} para que tu próxima compra incluya una pizza de regalo.
+                                Te faltan{" "}
+                                {trackedOrder.loyalty.purchasesUntilReward}{" "}
+                                {trackedOrder.loyalty.purchasesUntilReward === 1
+                                  ? "compra"
+                                  : "compras"}{" "}
+                                para obtener una pizza de regalo.
                               </p>
                             </div>
                           )}

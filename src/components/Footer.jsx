@@ -18,16 +18,16 @@ export default function Footer() {
           <div className="lg:col-span-4">
             <div className="flex items-center gap-3 mb-4">
               <img
-                src="/images/logoDante_forni.png"
+                src="/images/logo.svg"
                 alt="ComeTocino Logo"
                 className="h-12 w-auto object-contain"
               />
               <div>
                 <span className="text-2xl font-serif font-black tracking-tight text-flour block leading-none">
-                  Dante Forni
+                  ComeTocino
                 </span>
                 <span className="text-[11px] uppercase tracking-widest font-bold text-cometoYellow mt-0.5 block">
-                  Pizza Catering & Eventos
+                  Pizza a domicilio y pizza catering
                 </span>
               </div>
             </div>

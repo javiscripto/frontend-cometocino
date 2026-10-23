@@ -295,7 +295,7 @@ export const HOW_IT_WORKS_STEPS = [
   },
   {
     step: "03",
-    title: "Pizzas Ilimitadas sin Esperas",
+    title: "Pizzas continuas sin Esperas",
     description:
       "Salen pizzas calientes y burbujeantes en rondas continuas cortadas en porciones para compartir y degustar todas las combinaciones.",
     icon: "Pizza",
