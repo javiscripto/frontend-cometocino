@@ -12,7 +12,6 @@ import OrderSection from "./components/OrderSection";
 import MonthlyOffersSlider from "./components/MonthlyOffersSlider";
 import PackagesSection from "./components/PackagesSection";
 import Calculator from "./components/Calculator";
-import TestimonialsSection from "./components/TestimonialsSection";
 import FaqSection from "./components/FaqSection";
 import Footer from "./components/Footer";
 import FloatingWhatsApp from "./components/FloatingWhatsApp";
@@ -55,7 +54,8 @@ function AboutPage() {
 
 function ServicesPage({ selectedPackageId, onSelectPackage }) {
   useSEO({
-    title: "Pizza Catering y Pizza Party en Valdivia, Mariquina y Máfil | ComeTocino",
+    title:
+      "Pizza Catering y Pizza Party en Valdivia, Mariquina y Máfil | ComeTocino",
     description:
       "Servicio exclusivo de Pizza Catering y Pizza Party en vivo para matrimonios, cumpleaños y empresas en Valdivia, Mariquina y Máfil. Hornos a 450°C y barra libre de pizzas.",
     keywords:
@@ -73,7 +73,6 @@ function ServicesPage({ selectedPackageId, onSelectPackage }) {
         selectedPackageId={selectedPackageId}
         onSelectPackage={onSelectPackage}
       />
-      <TestimonialsSection />
       <FaqSection />
     </>
   );
