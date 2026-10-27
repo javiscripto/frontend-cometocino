@@ -5,20 +5,18 @@ import {
   Flame,
   Users,
   Calendar,
-  Clock,
   Sparkles,
   Check,
   Send,
   ShieldCheck,
-  ChevronRight,
 } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 
 export default function Calculator({ selectedPackageId, onSelectPackage }) {
   const [selectedPlanId, setSelectedPlanId] = useState(
-    selectedPackageId || "gourmet",
+    selectedPackageId || "pizza-6",
   );
-  const [guests, setGuests] = useState(35);
+  const [guests, setGuests] = useState(1);
   const [date, setDate] = useState("");
   const [location, setLocation] = useState("");
   const [comments, setComments] = useState("");
@@ -34,7 +32,7 @@ export default function Calculator({ selectedPackageId, onSelectPackage }) {
   // Current package object
   const currentPlan =
     CATERING_PACKAGES.find((p) => p.id === selectedPlanId) ||
-    CATERING_PACKAGES[1];
+    CATERING_PACKAGES[0];
 
   // Calculate pricing
   const basePricePerPerson = currentPlan.pricePerPerson;
@@ -54,17 +52,11 @@ export default function Calculator({ selectedPackageId, onSelectPackage }) {
     flatExtra += 65000;
   }
 
-  // Volume discount for 80+ guests (5% discount on base)
-  const volumeDiscount = guests >= 20 ? 0.05 : 0;
-  const effectiveBasePrice = Math.round(
-    basePricePerPerson * (1 - volumeDiscount),
-  );
+  // The displayed base rate must never fall below the requested minimum.
+  const effectiveBasePrice = Math.max(6990, basePricePerPerson);
   const totalPerPerson = effectiveBasePrice + extraPerPerson;
   const estimatedTotal = totalPerPerson * guests + flatExtra;
 
-  // Estimated pizza slices and whole pizzas
-  const estimatedPizzasCount = Math.round(guests * 1.25); // ~1.25 whole 30cm pizzas per person or 8-10 slices
-  const estimatedServiceHours = currentPlan.duration;
 
   const triggerConfetti = () => {
     confetti({
@@ -95,9 +87,9 @@ export default function Calculator({ selectedPackageId, onSelectPackage }) {
     const message =
       `Hola ComeTocino! 🔥%0A%0AMe gustaría cotizar el servicio de *Pizza Catering en Vivo*:%0A%0A` +
       `*Plan:* ${currentPlan.name}%0A` +
+      `*Pizzas:* ${currentPlan.pizzaCount} pizzas horneadas de ${currentPlan.diameterCm} cm%0A` +
       `*Invitados:* ${guests} personas%0A` +
-      `*Presupuesto Estimado:* $${estimatedTotal.toLocaleString("es-CL")} CLP ($${totalPerPerson.toLocaleString("es-CL")} / persona)%0A` +
-      `*Duración:* ${estimatedServiceHours}` +
+      `*Presupuesto estimado:* $${estimatedTotal.toLocaleString("es-CL")} CLP ($${totalPerPerson.toLocaleString("es-CL")} / persona)%0A` +
       extrasText +
       dateText +
       locText +
@@ -129,8 +121,8 @@ export default function Calculator({ selectedPackageId, onSelectPackage }) {
               Calcula el Presupuesto de tu Evento
             </h2>
             <p className="text-base sm:text-lg text-charcoal/70">
-              Personaliza el número de invitados y plan para conocer tu valor
-              estimado al instante, sin esperas ni letras chicas.
+              Elige cuántas pizzas de 32 cm quieres hornear. El valor mínimo es
+              $6.990 por persona; indica asistentes para calcular una referencia.
             </p>
           </div>
         </ScrollReveal>
@@ -142,13 +134,11 @@ export default function Calculator({ selectedPackageId, onSelectPackage }) {
             {/* Step 1: Select Plan */}
             <div className="mb-8">
               <label className="block text-sm font-extrabold text-charcoal uppercase tracking-wider mb-3 flex items-center justify-between">
-                <span>1. Elige tu Plan de Catering</span>
-                <span className="text-xs font-semibold text-craft-700">
-                  Mínimo 4 invitados
-                </span>
+                <span>1. Elige la cantidad de pizzas</span>
+                <span className="text-xs font-semibold text-craft-700">32 cm cada una</span>
               </label>
 
-              <div className="grid sm:grid-cols-3 gap-3">
+              <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-3">
                 {CATERING_PACKAGES.map((pkg) => {
                   const isSelected = selectedPlanId === pkg.id;
                   return (
@@ -160,8 +150,8 @@ export default function Calculator({ selectedPackageId, onSelectPackage }) {
                         if (onSelectPackage) onSelectPackage(pkg.id);
                       }}
                       className={`p-4 rounded-2xl text-left border-2 transition-all flex flex-col justify-between ${isSelected
-                          ? "border-charcoal bg-craft-100 shadow-warm"
-                          : "border-craft-300 bg-flour hover:border-craft-400 hover:bg-craft-50"
+                        ? "border-charcoal bg-craft-100 shadow-warm"
+                        : "border-craft-300 bg-flour hover:border-craft-400 hover:bg-craft-50"
                         }`}
                     >
                       <div>
@@ -173,6 +163,7 @@ export default function Calculator({ selectedPackageId, onSelectPackage }) {
                         <h4 className="text-sm font-bold text-charcoal leading-snug">
                           {pkg.name}
                         </h4>
+                        <span className="text-xs text-charcoal/60">{pkg.pizzaCount} pizzas horneadas · {pkg.diameterCm} cm</span>
                       </div>
                       <div className="mt-3 pt-2 border-t border-craft-200">
                         <span className="text-base font-extrabold text-charcoal font-serif">
@@ -188,48 +179,22 @@ export default function Calculator({ selectedPackageId, onSelectPackage }) {
               </div>
             </div>
 
-            {/* Step 2: Guest Count Slider */}
+              {/* Attendee count is used only to calculate the minimum total. */}
             <div className="mb-8">
               <div className="flex items-center justify-between mb-2">
                 <label className="text-sm font-extrabold text-charcoal uppercase tracking-wider flex items-center gap-2">
                   <Users className="w-4 h-4 text-craft-700" />
-                  <span>2. Cantidad de Invitados</span>
+                  <span>2. Personas estimadas</span>
                 </label>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-3xl font-serif font-black text-charcoal">
-                    {guests}
-                  </span>
-                  <span className="text-xs font-bold text-charcoal/70">
-                    personas
-                  </span>
-                </div>
               </div>
-
               <input
-                type="range"
-                min="4"
-                max="25"
-                step="1"
+                type="number"
+                min="1"
                 value={guests}
-                onChange={(e) => setGuests(Number(e.target.value))}
-                className="w-full h-2.5 bg-craft-200 rounded-lg appearance-none cursor-pointer accent-charcoal"
+                onChange={(e) => setGuests(Math.max(1, Number(e.target.value) || 1))}
+                className="w-full sm:w-48 px-4 py-3 rounded-xl border border-craft-300 bg-[#FAF6F0] text-charcoal focus:outline-none focus:ring-2 focus:ring-charcoal"
               />
-
-              <div className="flex justify-between text-[11px] font-bold text-charcoal/50 mt-1.5">
-                <span>20 (Juntada íntima)</span>
-                <span>60 (Celebración)</span>
-                <span>120 (Boda / Fiesta)</span>
-                <span>180+</span>
-              </div>
-
-              {guests >= 80 && (
-                <div className="mt-3 p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center gap-2 text-xs font-bold text-emerald-800">
-                  <Sparkles className="w-4 h-4 text-emerald-600" />
-                  <span>
-                    ¡Descuento por volumen aplicado! 5% OFF en la tarifa base
-                  </span>
-                </div>
-              )}
+              <p className="text-xs text-charcoal/60 mt-2">Referencia calculada desde $6.990 CLP por persona.</p>
             </div>
 
             {/* Step 3: Event Details */}
@@ -262,120 +227,120 @@ export default function Calculator({ selectedPackageId, onSelectPackage }) {
             </div>
 
             {/* Step 4: Optional Add-ons */}
-            <div className="mb-6">
-              <label className="block text-xs font-extrabold text-charcoal uppercase tracking-wider mb-3">
-                Complementos Opcionales
-              </label>
-
-              <div className="space-y-2.5">
-                {selectedPlanId === "amigos" && (
-                  <label className="flex items-center justify-between p-3 rounded-xl border border-craft-300/80 hover:bg-craft-50 cursor-pointer transition-colors">
-                    <div className="flex items-center gap-3">
-                      <input
-                        type="checkbox"
-                        checked={extras.sweetPizzas}
-                        onChange={(e) =>
-                          setExtras({
-                            ...extras,
-                            sweetPizzas: e.target.checked,
-                          })
-                        }
-                        className="w-4 h-4 rounded text-charcoal focus:ring-charcoal"
-                      />
-                      <div>
-                        <p className="text-xs font-bold text-charcoal">
-                          Barra de Pizzas Dulces (Nutella & Frutos)
-                        </p>
-                        <p className="text-[11px] text-charcoal/60">
-                          Ronda final de postre horneada al fuego
-                        </p>
-                      </div>
-                    </div>
-                    <span className="text-xs font-bold text-craft-800">
-                      +$2.500 /p
-                    </span>
-                  </label>
-                )}
-
-                {selectedPlanId !== "bodas" && (
-                  <label className="flex items-center justify-between p-3 rounded-xl border border-craft-300/80 hover:bg-craft-50 cursor-pointer transition-colors">
-                    <div className="flex items-center gap-3">
-                      <input
-                        type="checkbox"
-                        checked={extras.antipastoBar}
-                        onChange={(e) =>
-                          setExtras({
-                            ...extras,
-                            antipastoBar: e.target.checked,
-                          })
-                        }
-                        className="w-4 h-4 rounded text-charcoal focus:ring-charcoal"
-                      />
-                      <div>
-                        <p className="text-xs font-bold text-charcoal">
-                          Estación de Focaccias & Dips Gourmet
-                        </p>
-                        <p className="text-[11px] text-charcoal/60">
-                          Aperitivo de bienvenida al llegar los invitados
-                        </p>
-                      </div>
-                    </div>
-                    <span className="text-xs font-bold text-craft-800">
-                      +$3.500 /p
-                    </span>
-                  </label>
-                )}
-
-                <label className="flex items-center justify-between p-3 rounded-xl border border-craft-300/80 hover:bg-craft-50 cursor-pointer transition-colors">
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="checkbox"
-                      checked={extras.drinksBar}
-                      onChange={(e) =>
-                        setExtras({ ...extras, drinksBar: e.target.checked })
-                      }
-                      className="w-4 h-4 rounded text-charcoal focus:ring-charcoal"
-                    />
-                    <div>
-                      <p className="text-xs font-bold text-charcoal">
-                        Barra de Aguas Saborizadas Artesanales
-                      </p>
-                      <p className="text-[11px] text-charcoal/60">
-                        Limonada menta jengibre y frutos rojos ilimitada
-                      </p>
-                    </div>
-                  </div>
-                  <span className="text-xs font-bold text-craft-800">
-                    +$3.900 /p
-                  </span>
-                </label>
-
-                <label className="flex items-center justify-between p-3 rounded-xl border border-craft-300/80 hover:bg-craft-50 cursor-pointer transition-colors">
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="checkbox"
-                      checked={extras.extraOven}
-                      onChange={(e) =>
-                        setExtras({ ...extras, extraOven: e.target.checked })
-                      }
-                      className="w-4 h-4 rounded text-charcoal focus:ring-charcoal"
-                    />
-                    <div>
-                      <p className="text-xs font-bold text-charcoal">
-                        Segundo Horno de Alta Velocidad
-                      </p>
-                      <p className="text-[11px] text-charcoal/60">
-                        Ideal para eventos grandes con doble frente de despacho
-                      </p>
-                    </div>
-                  </div>
-                  <span className="text-xs font-bold text-craft-800">
-                    +$65.000 fijas
-                  </span>
-                </label>
-              </div>
-            </div>
-
+            {/* <div className="mb-6"> */}
+            {/*   <label className="block text-xs font-extrabold text-charcoal uppercase tracking-wider mb-3"> */}
+            {/*     Complementos Opcionales */}
+            {/*   </label> */}
+            {/**/}
+            {/*   <div className="space-y-2.5"> */}
+            {/*     {selectedPlanId === "amigos" && ( */}
+            {/*       <label className="flex items-center justify-between p-3 rounded-xl border border-craft-300/80 hover:bg-craft-50 cursor-pointer transition-colors"> */}
+            {/*         <div className="flex items-center gap-3"> */}
+            {/*           <input */}
+            {/*             type="checkbox" */}
+            {/*             checked={extras.sweetPizzas} */}
+            {/*             onChange={(e) => */}
+            {/*               setExtras({ */}
+            {/*                 ...extras, */}
+            {/*                 sweetPizzas: e.target.checked, */}
+            {/*               }) */}
+            {/*             } */}
+            {/*             className="w-4 h-4 rounded text-charcoal focus:ring-charcoal" */}
+            {/*           /> */}
+            {/*           <div> */}
+            {/*             <p className="text-xs font-bold text-charcoal"> */}
+            {/*               Barra de Pizzas Dulces (Nutella & Frutos) */}
+            {/*             </p> */}
+            {/*             <p className="text-[11px] text-charcoal/60"> */}
+            {/*               Ronda final de postre horneada al fuego */}
+            {/*             </p> */}
+            {/*           </div> */}
+            {/*         </div> */}
+            {/*         <span className="text-xs font-bold text-craft-800"> */}
+            {/*           +$2.500 /p */}
+            {/*         </span> */}
+            {/*       </label> */}
+            {/*     )} */}
+            {/**/}
+            {/*     {selectedPlanId !== "bodas" && ( */}
+            {/*       <label className="flex items-center justify-between p-3 rounded-xl border border-craft-300/80 hover:bg-craft-50 cursor-pointer transition-colors"> */}
+            {/*         <div className="flex items-center gap-3"> */}
+            {/*           <input */}
+            {/*             type="checkbox" */}
+            {/*             checked={extras.antipastoBar} */}
+            {/*             onChange={(e) => */}
+            {/*               setExtras({ */}
+            {/*                 ...extras, */}
+            {/*                 antipastoBar: e.target.checked, */}
+            {/*               }) */}
+            {/*             } */}
+            {/*             className="w-4 h-4 rounded text-charcoal focus:ring-charcoal" */}
+            {/*           /> */}
+            {/*           <div> */}
+            {/*             <p className="text-xs font-bold text-charcoal"> */}
+            {/*               Estación de Focaccias & Dips Gourmet */}
+            {/*             </p> */}
+            {/*             <p className="text-[11px] text-charcoal/60"> */}
+            {/*               Aperitivo de bienvenida al llegar los invitados */}
+            {/*             </p> */}
+            {/*           </div> */}
+            {/*         </div> */}
+            {/*         <span className="text-xs font-bold text-craft-800"> */}
+            {/*           +$3.500 /p */}
+            {/*         </span> */}
+            {/*       </label> */}
+            {/*     )} */}
+            {/**/}
+            {/*     <label className="flex items-center justify-between p-3 rounded-xl border border-craft-300/80 hover:bg-craft-50 cursor-pointer transition-colors"> */}
+            {/*       <div className="flex items-center gap-3"> */}
+            {/*         <input */}
+            {/*           type="checkbox" */}
+            {/*           checked={extras.drinksBar} */}
+            {/*           onChange={(e) => */}
+            {/*             setExtras({ ...extras, drinksBar: e.target.checked }) */}
+            {/*           } */}
+            {/*           className="w-4 h-4 rounded text-charcoal focus:ring-charcoal" */}
+            {/*         /> */}
+            {/*         <div> */}
+            {/*           <p className="text-xs font-bold text-charcoal"> */}
+            {/*             Barra de Aguas Saborizadas Artesanales */}
+            {/*           </p> */}
+            {/*           <p className="text-[11px] text-charcoal/60"> */}
+            {/*             Limonada menta jengibre y frutos rojos ilimitada */}
+            {/*           </p> */}
+            {/*         </div> */}
+            {/*       </div> */}
+            {/*       <span className="text-xs font-bold text-craft-800"> */}
+            {/*         +$3.900 /p */}
+            {/*       </span> */}
+            {/*     </label> */}
+            {/**/}
+            {/*     <label className="flex items-center justify-between p-3 rounded-xl border border-craft-300/80 hover:bg-craft-50 cursor-pointer transition-colors"> */}
+            {/*       <div className="flex items-center gap-3"> */}
+            {/*         <input */}
+            {/*           type="checkbox" */}
+            {/*           checked={extras.extraOven} */}
+            {/*           onChange={(e) => */}
+            {/*             setExtras({ ...extras, extraOven: e.target.checked }) */}
+            {/*           } */}
+            {/*           className="w-4 h-4 rounded text-charcoal focus:ring-charcoal" */}
+            {/*         /> */}
+            {/*         <div> */}
+            {/*           <p className="text-xs font-bold text-charcoal"> */}
+            {/*             Segundo Horno de Alta Velocidad */}
+            {/*           </p> */}
+            {/*           <p className="text-[11px] text-charcoal/60"> */}
+            {/*             Ideal para eventos grandes con doble frente de despacho */}
+            {/*           </p> */}
+            {/*         </div> */}
+            {/*       </div> */}
+            {/*       <span className="text-xs font-bold text-craft-800"> */}
+            {/*         +$65.000 fijas */}
+            {/*       </span> */}
+            {/*     </label> */}
+            {/*   </div> */}
+            {/* </div> */}
+            {/**/}
             {/* Step 5: Optional notes */}
             <div>
               <label className="block text-xs font-extrabold text-charcoal uppercase tracking-wider mb-2">
@@ -422,21 +387,21 @@ export default function Calculator({ selectedPackageId, onSelectPackage }) {
                     </strong>
                   </div>
                   <div className="flex justify-between items-center text-flour/80">
-                    <span>Duración de servicio:</span>
+                    <span>Pizzas horneadas:</span>
                     <strong className="text-flour font-bold">
-                      {estimatedServiceHours}
+                      {currentPlan.pizzaCount} de {currentPlan.diameterCm} cm
                     </strong>
                   </div>
                   <div className="flex justify-between items-center text-flour/80">
-                    <span>Pizzas estimadas en vivo:</span>
+                    <span>Valor por persona:</span>
                     <strong className="text-cometoYellow font-bold">
-                      ~{estimatedPizzasCount} pizzas artesanas
+                      ${totalPerPerson.toLocaleString("es-CL")} CLP
                     </strong>
                   </div>
                   <div className="flex justify-between items-center text-flour/80">
-                    <span>Valor por comensal:</span>
+                    <span>Personas estimadas:</span>
                     <strong className="text-flour font-bold">
-                      ${totalPerPerson.toLocaleString("es-CL")} / persona
+                      {guests}
                     </strong>
                   </div>
                   {flatExtra > 0 && (
@@ -452,7 +417,7 @@ export default function Calculator({ selectedPackageId, onSelectPackage }) {
                 {/* Total Big Box */}
                 <div className="bg-flour/10 backdrop-blur-sm rounded-2xl p-5 border border-flour/15 mb-6 text-center">
                   <p className="text-xs uppercase font-extrabold text-craft-300 tracking-wider mb-1">
-                    Presupuesto Total Estimado
+                    Presupuesto Estimado
                   </p>
                   <div className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black text-flour tracking-tight">
                     ${estimatedTotal.toLocaleString("es-CL")}

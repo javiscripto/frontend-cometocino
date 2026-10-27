@@ -30,13 +30,13 @@ export default function PackagesSection({ onSelectPackage }) {
               Planes de Pizza Catering para Tu Evento
             </h2>
             <p className="text-base sm:text-xl text-charcoal/70">
-              Tarifas por persona para matrimonios, cumpleaños y celebraciones en Valdivia, Mariquina y Máfil. Insumos gourmet, maestros pizzeros en vivo, vajilla compostable y montaje total.
+              Elige paquetes de 6, 12, 18 o 24 pizzas horneadas de 32 cm. Valor mínimo desde $6.990 CLP por persona; el total se calcula según la cantidad de personas.
             </p>
           </div>
         </ScrollReveal>
 
-        {/* 3 Packages Cards with Scroll Animations */}
-        <div className="grid lg:grid-cols-3 gap-8 items-stretch">
+        {/* Package cards */}
+        <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-8 items-stretch">
           {CATERING_PACKAGES.map((pkg, idx) => (
             <ScrollReveal
               key={pkg.id}
@@ -62,7 +62,7 @@ export default function PackagesSection({ onSelectPackage }) {
                   {/* Plan Header */}
                   <div className="mb-6">
                     <span className="text-xs font-black uppercase tracking-wider text-craft-700">
-                      {pkg.recommendedFor}
+                      {pkg.pizzaCount} pizzas · {pkg.diameterCm} cm
                     </span>
                     <h3 className="text-2xl sm:text-3xl font-serif font-black text-charcoal mt-1.5 mb-2 leading-tight">
                       {pkg.name}
@@ -83,8 +83,8 @@ export default function PackagesSection({ onSelectPackage }) {
                       </span>
                     </div>
                     <div className="mt-3 pt-3 border-t border-craft-200 flex items-center justify-between text-xs text-craft-900 font-bold">
-                      <span>⏱ {pkg.duration}</span>
-                      <span>Mínimo {pkg.minGuests} pers.</span>
+                      <span>Horneadas en vivo</span>
+                      <span>por comensal</span>
                     </div>
                   </div>
 
@@ -129,7 +129,7 @@ export default function PackagesSection({ onSelectPackage }) {
           className="mt-16 text-center"
         >
           <p className="text-sm sm:text-base text-charcoal/80 font-medium">
-            ¿Tienes un evento con más invitados?{" "}
+            ¿Necesitas una cantidad distinta de pizzas?{" "}
             <a
               href="https://wa.me/56949869112?text=Hola!%20Tengo%20un%20evento%20grande%20y%20me%20gustar%C3%ADa%20una%20propuesta%20a%20medida."
               target="_blank"
