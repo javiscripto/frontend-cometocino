@@ -8,7 +8,8 @@ export const PIZZA_VARIETIES = [
       "Nuestra firma: salsa pomodoro rústica 100% italiana , mozzarella fior di latte, pechuga de pollo desmennuzada y ligeramente tostada, oregano fresco y salsa BBQ .",
     ingredients: ["Pomodoro", "Mozzarella", "Pollo", "orégano", "Swirl BBQ"],
     popular: true,
-    image: "/images/pizza-overhead.jpg",
+    image:
+      "https://res.cloudinary.com/kt1vvb0c/image/upload/v1791495034/Pizza_artesanal_de_pollo_BBQ_en_espiral.png",
     tag: "Recomendada",
   },
   {
@@ -25,7 +26,8 @@ export const PIZZA_VARIETIES = [
       "Aceite de oliva EVOO",
     ],
     popular: true,
-    image: "/images/pizza-hero.png",
+    image:
+      "https://res.cloudinary.com/kt1vvb0c/image/upload/v1793109105/Pizza_Margherita_Artesanal.png",
     tag: "Vegetariana",
   },
   {
@@ -45,7 +47,8 @@ export const PIZZA_VARIETIES = [
       "lascas de queso parmesano",
     ],
     popular: true,
-    image: "/images/napolitana-clasica.png",
+    image:
+      "https://res.cloudinary.com/kt1vvb0c/image/upload/v1791231184/napolitana-clasica.png",
     tag: "Vegetariana",
   },
   {
@@ -57,7 +60,8 @@ export const PIZZA_VARIETIES = [
       "Pepperoni artesanal horneado a 450°C formando cuencos crocantes con queso gratinado y un toque final de miel infusionada en ají cacho de cabra.",
     ingredients: ["Pepperoni curado", "Mozzarella", "Miel picante casera"],
     popular: true,
-    image: "/images/pepperoni.png",
+    image:
+      "https://res.cloudinary.com/kt1vvb0c/image/upload/v1791231889/pepperoni.png",
     tag: "Top Ventas",
   },
   {
@@ -75,7 +79,8 @@ export const PIZZA_VARIETIES = [
       "salsa BBQ",
     ],
     popular: false,
-    image: "/images/pizza-overhead.jpg",
+    image:
+      "https://res.cloudinary.com/kt1vvb0c/image/upload/v1791237074/pizza-isolated.png",
     tag: "Gourmet",
   },
   {
@@ -93,7 +98,8 @@ export const PIZZA_VARIETIES = [
       "Nueces",
     ],
     popular: false,
-    image: "/images/pizza-hero.png",
+    image:
+      "https://res.cloudinary.com/kt1vvb0c/image/upload/v1792105779/converted-4.webp",
     tag: "Vegetariana",
   },
   {
@@ -112,7 +118,8 @@ export const PIZZA_VARIETIES = [
       "Albahaca fresca",
     ],
     popular: true,
-    image: "/images/pizza-overhead.jpg",
+    image:
+      "https://res.cloudinary.com/kt1vvb0c/image/upload/v1791406139/caprichosa.png",
     tag: "Recomendada",
   },
 
@@ -131,7 +138,8 @@ export const PIZZA_VARIETIES = [
       "Salsa de camarón",
     ],
     popular: true,
-    image: "/images/pizza-hero.png",
+    image:
+      "https://res.cloudinary.com/kt1vvb0c/image/upload/v1791406182/camaron_al_ajillo.png",
     tag: "Recomendada",
   },
 
@@ -150,7 +158,8 @@ export const PIZZA_VARIETIES = [
       "Salsa BBQ",
     ],
     popular: true,
-    image: "/images/pizza-overhead.jpg",
+    image:
+      "https://res.cloudinary.com/kt1vvb0c/image/upload/v1791495034/Pizza_artesanal_de_pollo_BBQ_en_espiral.png",
     tag: "Favorita",
   },
 
@@ -169,7 +178,8 @@ export const PIZZA_VARIETIES = [
       "Ají jalapeño encurtido",
     ],
     popular: false,
-    image: "/images/pizza-hero.png",
+    image:
+      "https://res.cloudinary.com/kt1vvb0c/image/upload/v1793110960/Pizza_artesanal_de_carne_y_jalape%C3%B1o.png",
     tag: "Picante",
   },
 
@@ -190,7 +200,8 @@ export const PIZZA_VARIETIES = [
       "Merkén",
     ],
     popular: false,
-    image: "/images/pizza-overhead.jpg",
+    image:
+      "https://res.cloudinary.com/kt1vvb0c/image/upload/v1791667854/funghi.webp",
     tag: "Especial",
   },
   {
@@ -251,7 +262,8 @@ export const CATERING_PACKAGES = [
   {
     id: "pizza-18",
     name: "Horno & Mesa",
-    tagline: "Carta completa y apoyo en el servicio para una experiencia más fluida.",
+    tagline:
+      "Carta completa y apoyo en el servicio para una experiencia más fluida.",
     pizzaCount: 18,
     diameterCm: 32,
     pricePerPerson: 10990,
@@ -271,7 +283,8 @@ export const CATERING_PACKAGES = [
   {
     id: "pizza-24",
     name: "La Gran Fornada",
-    tagline: "Nuestro servicio más completo, con equipo ampliado para grandes mesas.",
+    tagline:
+      "Nuestro servicio más completo, con equipo ampliado para grandes mesas.",
     pizzaCount: 24,
     diameterCm: 32,
     pricePerPerson: 12990,

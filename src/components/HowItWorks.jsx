@@ -26,7 +26,7 @@ export default function HowItWorks() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Catering hero with looping oven footage */}
         <ScrollReveal animation="fade-up">
-          <div className="relative isolate overflow-hidden rounded-[2rem] min-h-[430px] sm:min-h-[500px] mb-20 flex items-center justify-center px-6 py-16 sm:px-12">
+          <div className="relative isolate overflow-hidden rounded-[1rem] min-h-[430px] sm:min-h-[500px] mb-20 flex items-center justify-center px-6 py-16 sm:px-12">
             <img
               src="/images/pizza_margherita.png"
               alt="Pizza Catering en Los Ríos"
