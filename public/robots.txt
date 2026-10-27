@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap para indexación en Google, Bing y motores de búsqueda
+Sitemap: https://cometocino.cl/sitemap.xml

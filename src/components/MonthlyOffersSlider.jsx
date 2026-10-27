@@ -72,9 +72,9 @@ export default function MonthlyOffersSlider() {
                 <Tag className="h-3.5 w-3.5" />
                 Ofertas del mes
               </span>
-              <h1 className="mb-4 font-serif text-1xl font-black leading-tight tracking-tight sm:text-5xl lg:text-2xl">
+              <h2 className="mb-4 font-serif text-2xl font-black leading-tight tracking-tight sm:text-5xl lg:text-3xl">
                 {offer.title}
-              </h1>
+              </h2>
               <p className="mb-8 max-w-lg text-sm leading-relaxed text-flour/85 sm:text-lg">
                 {offer.description}
               </p>

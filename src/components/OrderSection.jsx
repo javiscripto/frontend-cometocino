@@ -507,20 +507,29 @@ export default function OrderSection() {
       <div className="absolute bottom-10 right-0 w-80 h-80 bg-cometoRed/10 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
+        {/* Section Header with Local Delivery SEO */}
         <ScrollReveal animation="fade-up">
           <div className="text-center max-w-3xl mx-auto mb-14">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-craft-300/60 text-charcoal text-xs font-black uppercase tracking-wider mb-4 border border-craft-400/40">
               <ShoppingBag className="w-3.5 h-3.5 text-cometoRed" />
-              <span>Realizar Pedido Directo</span>
+              <span>Pizzas a Domicilio & Retiro</span>
             </div>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-black text-charcoal mb-4 tracking-tight">
-              Haz tu Pedido Online
-            </h2>
-            <p className="text-base sm:text-lg text-charcoal/75">
-              Consulta nuestra carta disponible en tiempo real, elige tus
-              favoritos y envíanos tu pedido al instante.
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-black text-charcoal mb-4 tracking-tight">
+              Pizzas a Domicilio en Mariquina, Valdivia y Máfil
+            </h1>
+            <p className="text-base sm:text-lg text-charcoal/75 max-w-2xl mx-auto mb-5">
+              Pide online pizzas artesanales de masa madre fermentada por 48 horas.
+              Reparto directo en la{" "}
+              <strong className="text-charcoal font-bold">Comuna de Mariquina (San José y Pelchuquín)</strong>,{" "}
+              <strong className="text-charcoal font-bold">Valdivia</strong> y{" "}
+              <strong className="text-charcoal font-bold">Máfil</strong>.
             </p>
+            <div className="inline-flex flex-wrap items-center justify-center gap-2 text-xs font-bold text-craft-800 bg-flour/90 px-4 py-2 rounded-full border border-craft-300 shadow-warm-sm">
+              <span className="flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-cometoRed shrink-0" />
+                Despacho activo en Mariquina, Valdivia y Máfil
+              </span>
+            </div>
           </div>
         </ScrollReveal>
 

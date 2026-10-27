@@ -27,12 +27,10 @@ export default function PackagesSection({ onSelectPackage }) {
               <span>Paquetes Todo Incluido</span>
             </div>
             <h2 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-black text-charcoal mb-4 tracking-tight leading-[1.05]">
-              Planes para Cada Celebración
+              Planes de Pizza Catering para Tu Evento
             </h2>
             <p className="text-base sm:text-xl text-charcoal/70">
-              Tarifas transparentes por persona con todos los costos de insumos
-              gourmet, maestros pizzeros en vivo, vajilla compostable y montaje
-              incluidos.
+              Tarifas por persona para matrimonios, cumpleaños y celebraciones en Valdivia, Mariquina y Máfil. Insumos gourmet, maestros pizzeros en vivo, vajilla compostable y montaje total.
             </p>
           </div>
         </ScrollReveal>

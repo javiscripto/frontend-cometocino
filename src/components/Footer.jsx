@@ -126,24 +126,24 @@ export default function Footer() {
           {/* Coverage Areas */}
           <div className="lg:col-span-3">
             <h4 className="text-sm font-bold uppercase tracking-wider text-cometoYellow mb-4">
-              Zonas de Cobertura
+              Pizzas a Domicilio y Catering
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm text-flour/80">
               <li className="flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5 text-cometoRed shrink-0" />
-                <span>Comuna de Mariquina</span>
+                <span>Comuna de Mariquina (San José y Pelchuquín)</span>
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5 text-cometoRed shrink-0" />
-                <span>Comuna de Valdivia</span>
+                <span>Comuna de Valdivia (Zonas urbanas y parcelas)</span>
               </li>
               <li className="flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5 text-cometoRed shrink-0" />
-                <span>comuna de Mafil(San Pedro, Formio, Mafil)</span>
+                <span>Comuna de Máfil (San Pedro, Formio, Máfil)</span>
               </li>
               <li className="flex items-center gap-2 text-cometoYellow text-xs font-semibold pt-1">
                 <span>
-                  ✈ Consulta para otras comunas de la region de los rios
+                  ✓ Despacho y eventos en la Región de Los Ríos
                 </span>
               </li>
             </ul>

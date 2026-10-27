@@ -41,7 +41,7 @@ export default function Hero() {
                 />
                 <span className="text-xs sm:text-sm font-bold tracking-wide text-charcoal flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-cometoRed animate-pulse"></span>
-                  Servicio Exclusivo de Pizza Party & Catering.
+                  Pizza Catering & Pizzas a Domicilio en Los Ríos
                 </span>
               </div>
             </ScrollReveal>
@@ -61,8 +61,11 @@ export default function Hero() {
             {/* Subtitle with high readability */}
             <ScrollReveal animation="fade-up" delay={300}>
               <p className="text-lg sm:text-xl md:text-2xl text-charcoal/80 font-normal leading-relaxed max-w-2xl mb-8">
-                Instalamos nuestros hornos profesionales en tu jardín o terraza.
-                Masa madre con{" "}
+                Instalamos nuestros hornos profesionales en tu jardín, parcela o salón en{" "}
+                <strong className="font-extrabold text-charcoal">
+                  Mariquina, Valdivia y Máfil
+                </strong>
+                . Masa madre con{" "}
                 <strong className="font-extrabold text-charcoal">
                   48 horas de fermentación
                 </strong>

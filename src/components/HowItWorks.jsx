@@ -19,13 +19,13 @@ export default function HowItWorks() {
         <ScrollReveal animation="fade-up">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-craft-200 text-craft-900 text-xs font-extrabold uppercase tracking-wider mb-4">
-              <span>Experiencia 100% Sin Complicaciones</span>
+              <span>Pizza Catering & Pizza Party en Los Ríos</span>
             </div>
-            <h2 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-black text-charcoal mb-6 tracking-tight leading-[1.05]">
-              ¿Cómo Funciona el Pizza Catering?
-            </h2>
-            <p className="text-base sm:text-xl text-charcoal/75 leading-relaxed">
-              Llegamos, montamos nuestra estación autónoma y llenamos tu fiesta con el aroma irresistible de la pizza recién horneada al fuego.
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-black text-charcoal mb-6 tracking-tight leading-[1.05]">
+              Pizza Catering para Eventos en Valdivia, Mariquina y Máfil
+            </h1>
+            <p className="text-base sm:text-xl text-charcoal/75 leading-relaxed max-w-3xl mx-auto">
+              Llevamos nuestros hornos profesionales y maestros pizzeros en vivo a tu parcela, terraza o empresa en las comunas de <strong className="text-charcoal font-bold">Valdivia</strong>, <strong className="text-charcoal font-bold">Mariquina</strong> y <strong className="text-charcoal font-bold">Máfil</strong>. Masa madre de 48 horas, show al fuego y barra libre de pizzas.
             </p>
           </div>
         </ScrollReveal>

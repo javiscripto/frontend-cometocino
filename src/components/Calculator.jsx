@@ -253,7 +253,7 @@ export default function Calculator({ selectedPackageId, onSelectPackage }) {
                 </label>
                 <input
                   type="text"
-                  placeholder="Ej: Chicureo, Las Condes, Pirque..."
+                  placeholder="Ej: Mariquina, Valdivia, Máfil, Pelchuquín..."
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   className="w-full px-4 py-2.5 rounded-xl border border-craft-300 bg-[#FAF6F0] text-sm text-charcoal focus:outline-none focus:ring-2 focus:ring-charcoal"
