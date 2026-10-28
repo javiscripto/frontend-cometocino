@@ -515,19 +515,19 @@ export default function OrderSection() {
               <span>Pizzas a Domicilio & Retiro</span>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif font-black text-charcoal mb-4 tracking-tight">
-              Pizzas a Domicilio en Mariquina, Valdivia y Máfil
+              Pide tu Pizza a domicilio
             </h1>
             <p className="text-base sm:text-lg text-charcoal/75 max-w-2xl mx-auto mb-5">
-              Pide online pizzas artesanales de masa madre fermentada por 48 horas.
-              Reparto directo en la{" "}
-              <strong className="text-charcoal font-bold">Comuna de Mariquina (San José y Pelchuquín)</strong>,{" "}
-              <strong className="text-charcoal font-bold">Valdivia</strong> y{" "}
-              <strong className="text-charcoal font-bold">Máfil</strong>.
+              Pide online pizzas artesanales . Reparto directo en la{" "}
+              <strong className="text-charcoal font-bold">
+                Pelchuquin y al rededores
+              </strong>
+              ,{" "}
             </p>
             <div className="inline-flex flex-wrap items-center justify-center gap-2 text-xs font-bold text-craft-800 bg-flour/90 px-4 py-2 rounded-full border border-craft-300 shadow-warm-sm">
               <span className="flex items-center gap-1.5">
                 <MapPin className="w-3.5 h-3.5 text-cometoRed shrink-0" />
-                Despacho activo en Mariquina, Valdivia y Máfil
+                Pizza artesanal desde Pelchuquin
               </span>
             </div>
           </div>
