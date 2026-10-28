@@ -97,7 +97,7 @@ function OrderOnlinePage() {
 }
 
 function AppShell() {
-  const [selectedPackageId, setSelectedPackageId] = useState("gourmet");
+  const [selectedPackageId, setSelectedPackageId] = useState("pizza-6");
 
   return (
     <div className="min-h-screen bg-[#FAF6F0] text-charcoal font-sans selection:bg-cometoYellow selection:text-charcoal-black relative">

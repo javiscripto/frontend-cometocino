@@ -1,6 +1,6 @@
 import React from "react";
 import { CATERING_PACKAGES } from "../data/cateringData";
-import { Check, Star, ArrowRight, Flame } from "lucide-react";
+import { Check, Star, ArrowRight } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 
 export default function PackagesSection({ onSelectPackage }) {
@@ -30,7 +30,7 @@ export default function PackagesSection({ onSelectPackage }) {
               Planes de Pizza Catering para Tu Evento
             </h2>
             <p className="text-base sm:text-xl text-charcoal/70">
-              Elige paquetes de 6, 12, 18 o 24 pizzas horneadas de 32 cm. Valor mínimo desde $6.990 CLP por persona; el total se calcula según la cantidad de personas.
+              Planes con precio fijo según la cantidad de pizzas horneadas. Cada pizza de 32 cm se corta en 8 porciones; el rendimiento es una referencia de 2 a 3 porciones por comensal.
             </p>
           </div>
         </ScrollReveal>
@@ -73,18 +73,18 @@ export default function PackagesSection({ onSelectPackage }) {
                   </div>
 
                   {/* Pricing Display */}
-                  <div className="p-5 rounded-2xl bg-craft-100/80 border border-craft-200 mb-8">
-                    <div className="flex items-baseline gap-1.5">
-                      <span className="text-3xl sm:text-5xl font-black font-serif text-charcoal tracking-tight">
-                        ${pkg.pricePerPerson.toLocaleString("es-CL")}
+                  <div className="p-4 sm:p-5 rounded-2xl bg-craft-100/80 border border-craft-200 mb-8 min-w-0">
+                    <div className="flex min-w-0 flex-col items-start gap-1">
+                      <span className="max-w-full text-[clamp(1.5rem,2.2vw,2rem)] font-black font-serif text-charcoal tracking-[-0.045em] leading-none whitespace-nowrap">
+                        ${pkg.price.toLocaleString("es-CL")}
                       </span>
-                      <span className="text-xs sm:text-sm text-charcoal/70 font-bold">
-                        / persona
+                      <span className="text-xs sm:text-sm text-charcoal/70 font-bold leading-tight">
+                        por paquete
                       </span>
                     </div>
-                    <div className="mt-3 pt-3 border-t border-craft-200 flex items-center justify-between text-xs text-craft-900 font-bold">
-                      <span>Horneadas en vivo</span>
-                      <span>por comensal</span>
+                    <div className="mt-3 pt-3 border-t border-craft-200 flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1 text-xs text-craft-900 font-bold">
+                      <span>Rendimiento aprox.</span>
+                      <span>{pkg.servingsMin}–{pkg.servingsMax} personas</span>
                     </div>
                   </div>
 
@@ -121,6 +121,19 @@ export default function PackagesSection({ onSelectPackage }) {
             </ScrollReveal>
           ))}
         </div>
+
+        <ScrollReveal animation="fade-up" delay={100} className="mt-12">
+          <div className="grid md:grid-cols-2 gap-6 rounded-3xl bg-craft-200/60 border border-craft-300 p-6 sm:p-8 text-charcoal">
+            <div>
+              <h3 className="font-serif text-xl font-black mb-3">Qué estás contratando</h3>
+              <p className="text-sm leading-relaxed text-charcoal/75">El valor cubre las pizzas y su producción (incluye packaging y energía), el traslado y los costos variables del evento, además de la preparación y el horneado en vivo con maestro pizzero y horno profesional.</p>
+            </div>
+            <div>
+              <h3 className="font-serif text-xl font-black mb-3">Rendimiento y extras</h3>
+              <p className="text-sm leading-relaxed text-charcoal/75">La estimación considera 8 porciones por pizza y 2–3 porciones por persona; puede variar según el apetito y los demás alimentos del evento. El servicio a la mesa no está incluido: se cotiza aparte según asistentes y requiere desde $50.000 por mesero/turno.</p>
+            </div>
+          </div>
+        </ScrollReveal>
 
         {/* Custom Event Notice */}
         <ScrollReveal
