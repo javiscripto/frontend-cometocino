@@ -29,9 +29,6 @@ export default function PackagesSection({ onSelectPackage }) {
             <h2 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-black text-charcoal mb-4 tracking-tight leading-[1.05]">
               Planes de Pizza Catering para Tu Evento
             </h2>
-            <p className="text-base sm:text-xl text-charcoal/70">
-              Planes con precio fijo según la cantidad de pizzas horneadas. Cada pizza de 32 cm se corta en 8 porciones; el rendimiento es una referencia de 2 a 3 porciones por comensal.
-            </p>
           </div>
         </ScrollReveal>
 
@@ -84,7 +81,9 @@ export default function PackagesSection({ onSelectPackage }) {
                     </div>
                     <div className="mt-3 pt-3 border-t border-craft-200 flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1 text-xs text-craft-900 font-bold">
                       <span>Rendimiento aprox.</span>
-                      <span>{pkg.servingsMin}–{pkg.servingsMax} personas</span>
+                      <span>
+                        {pkg.servingsMin}–{pkg.servingsMax} personas
+                      </span>
                     </div>
                   </div>
 
@@ -125,12 +124,32 @@ export default function PackagesSection({ onSelectPackage }) {
         <ScrollReveal animation="fade-up" delay={100} className="mt-12">
           <div className="grid md:grid-cols-2 gap-6 rounded-3xl bg-craft-200/60 border border-craft-300 p-6 sm:p-8 text-charcoal">
             <div>
-              <h3 className="font-serif text-xl font-black mb-3">Qué estás contratando</h3>
-              <p className="text-sm leading-relaxed text-charcoal/75">El valor cubre las pizzas y su producción (incluye packaging y energía), el traslado y los costos variables del evento, además de la preparación y el horneado en vivo con maestro pizzero y horno profesional.</p>
+              <h3 className="font-serif text-xl font-black mb-3">
+                Qué estás contratando
+              </h3>
+              <p className="text-sm leading-relaxed text-charcoal/75">
+                El servicio de pizza catering consiste en la preparacion de
+                pizzas horneadas en vivo en el lugar que tu evento se lleve a
+                cabo.
+              </p>
+              <p className="text-sm leading-relaxed text-charcoal/75">
+                Convierte tu evento en una experiencia inmersiva en el mundo de
+                la pizza napoletana; masa en el aire, fuego a alta temperatura y
+                pizzas humeantes, recien salidas del horno hechas por manos
+                expertas.
+              </p>
             </div>
             <div>
-              <h3 className="font-serif text-xl font-black mb-3">Rendimiento y extras</h3>
-              <p className="text-sm leading-relaxed text-charcoal/75">La estimación considera 8 porciones por pizza y 2–3 porciones por persona; puede variar según el apetito y los demás alimentos del evento. El servicio a la mesa no está incluido: se cotiza aparte según asistentes y requiere desde $50.000 por mesero/turno.</p>
+              <h3 className="font-serif text-xl font-black mb-3">
+                Rendimiento y extras
+              </h3>
+              <p className="text-sm leading-relaxed text-charcoal/75">
+                La estimación considera 8 porciones por pizza y 2–3 porciones
+                por persona; puede variar según el apetito y los demás alimentos
+                del evento. El servicio a la mesa no está incluido: se cotiza
+                aparte según asistentes y requiere desde $50.000 por
+                mesero/turno.
+              </p>
             </div>
           </div>
         </ScrollReveal>

@@ -39,7 +39,7 @@ export default function HowItWorks() {
                 <span>Pizza Catering & Pizza Party en Los Ríos</span>
               </div>
               <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-black text-white mb-6 tracking-tight leading-[1.05] drop-shadow-lg">
-                Pizza Catering para Eventos en Valdivia, Mariquina y Máfil
+                Pizza Catering para Eventos en Los Ríos
               </h1>
               <p className="text-base sm:text-xl text-white/90 leading-relaxed max-w-3xl mx-auto drop-shadow-md">
                 Llevamos nuestros hornos profesionales y maestros pizzeros en
@@ -48,17 +48,6 @@ export default function HowItWorks() {
                 <strong className="text-white font-bold">Mariquina</strong> y{" "}
                 <strong className="text-white font-bold">Máfil</strong>. Masa
                 madre de 48 horas, show al fuego y barra libre de pizzas.
-              </p>
-              <p className="mt-6 text-xs text-white/70">
-                Video:{" "}
-                <a
-                  href="https://www.pexels.com/video/a-pizza-oven-with-flames-coming-out-of-it-7090945/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="underline underline-offset-2 hover:text-white"
-                >
-                  Pexels
-                </a>
               </p>
             </div>
           </div>

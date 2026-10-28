@@ -518,7 +518,7 @@ export default function OrderSection() {
               Pide tu Pizza a domicilio
             </h1>
             <p className="text-base sm:text-lg text-charcoal/75 max-w-2xl mx-auto mb-5">
-              Pide online pizzas artesanales . Reparto directo en la{" "}
+              Pide online pizzas artesanales . Reparto directo en {" "}
               <strong className="text-charcoal font-bold">
                 Pelchuquin y al rededores
               </strong>
@@ -1009,10 +1009,10 @@ export default function OrderSection() {
                     id="order-captcha-feedback"
                     aria-live="polite"
                     className={`text-[11px] ${captchaError
-                        ? "text-red-700"
-                        : captchaIsValid
-                          ? "text-emerald-700"
-                          : "text-charcoal/55"
+                      ? "text-red-700"
+                      : captchaIsValid
+                        ? "text-emerald-700"
+                        : "text-charcoal/55"
                       }`}
                   >
                     {captchaError ||
@@ -1158,8 +1158,8 @@ export default function OrderSection() {
                       {trackedOrder.loyalty && (
                         <div
                           className={`rounded-xl border p-3 ${trackedOrder.loyalty.nextPurchaseHasGift
-                              ? "border-cometoYellow/70 bg-cometoYellow/20"
-                              : "border-craft-200 bg-flour"
+                            ? "border-cometoYellow/70 bg-cometoYellow/20"
+                            : "border-craft-200 bg-flour"
                             }`}
                           aria-live="polite"
                         >
