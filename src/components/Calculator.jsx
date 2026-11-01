@@ -23,7 +23,7 @@ export default function Calculator({ selectedPackageId, onSelectPackage }) {
       particleCount: 80,
       spread: 70,
       origin: { y: 0.7 },
-      colors: ["#F6CE6E", "#D94A26", "#7298D7", "#D0B087"],
+      colors: ["#E9BC62", "#C65A3B", "#73764C", "#C7A477"],
     });
 
     const details = [
@@ -47,7 +47,7 @@ export default function Calculator({ selectedPackageId, onSelectPackage }) {
   };
 
   return (
-    <section id="cotizador" className="py-24 bg-[#FAF6F0] relative overflow-hidden border-t border-craft-300">
+    <section id="cotizador" className="py-24 bg-[#FBF8F1] relative overflow-hidden border-t border-craft-300">
       <div className="absolute top-1/4 -right-20 w-96 h-96 bg-cometoYellow/15 rounded-full blur-3xl pointer-events-none -z-10" />
       <div className="absolute bottom-10 -left-20 w-96 h-96 bg-craft-400/20 rounded-full blur-3xl pointer-events-none -z-10" />
 
@@ -107,17 +107,17 @@ export default function Calculator({ selectedPackageId, onSelectPackage }) {
                 <label className="block text-xs font-extrabold text-charcoal uppercase tracking-wider mb-2 flex items-center gap-1.5">
                   <Calendar className="w-3.5 h-3.5 text-craft-700" /> Fecha tentativa
                 </label>
-                <input type="date" value={date} onChange={(event) => setDate(event.target.value)} className="w-full px-4 py-2.5 rounded-xl border border-craft-300 bg-[#FAF6F0] text-sm text-charcoal focus:outline-none focus:ring-2 focus:ring-charcoal" />
+                <input type="date" value={date} onChange={(event) => setDate(event.target.value)} className="w-full px-4 py-2.5 rounded-xl border border-craft-300 bg-[#FBF8F1] text-sm text-charcoal focus:outline-none focus:ring-2 focus:ring-charcoal" />
               </div>
               <div>
                 <label className="block text-xs font-extrabold text-charcoal uppercase tracking-wider mb-2">Comuna o ciudad del evento</label>
-                <input type="text" placeholder="Ej: Mariquina, Valdivia, Máfil..." value={location} onChange={(event) => setLocation(event.target.value)} className="w-full px-4 py-2.5 rounded-xl border border-craft-300 bg-[#FAF6F0] text-sm text-charcoal focus:outline-none focus:ring-2 focus:ring-charcoal" />
+                <input type="text" placeholder="Ej: Mariquina, Valdivia, Máfil..." value={location} onChange={(event) => setLocation(event.target.value)} className="w-full px-4 py-2.5 rounded-xl border border-craft-300 bg-[#FBF8F1] text-sm text-charcoal focus:outline-none focus:ring-2 focus:ring-charcoal" />
               </div>
             </div>
 
             <div>
               <label className="block text-xs font-extrabold text-charcoal uppercase tracking-wider mb-2">¿Algún requerimiento especial? (Opcional)</label>
-              <textarea rows="2" placeholder="Preferencias de variedades, horario u otros detalles..." value={comments} onChange={(event) => setComments(event.target.value)} className="w-full px-4 py-2 rounded-xl border border-craft-300 bg-[#FAF6F0] text-sm text-charcoal focus:outline-none focus:ring-2 focus:ring-charcoal resize-none" />
+              <textarea rows="2" placeholder="Preferencias de variedades, horario u otros detalles..." value={comments} onChange={(event) => setComments(event.target.value)} className="w-full px-4 py-2 rounded-xl border border-craft-300 bg-[#FBF8F1] text-sm text-charcoal focus:outline-none focus:ring-2 focus:ring-charcoal resize-none" />
             </div>
           </div>
 

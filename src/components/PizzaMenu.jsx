@@ -19,7 +19,7 @@ export default function PizzaMenu() {
     : PIZZA_VARIETIES.filter(p => p.category === activeCategory);
 
   return (
-    <section id="menu" className="py-28 bg-[#FAF6F0] relative overflow-hidden">
+    <section id="menu" className="py-28 bg-[#FBF8F1] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header with Big Editorial Typography */}
@@ -86,7 +86,7 @@ export default function PizzaMenu() {
                         ? 'bg-emerald-600 text-white'
                         : pizza.tag === 'Postre'
                         ? 'bg-pink-600 text-white'
-                        : 'bg-cometoBlue-dark text-white'
+                        : 'bg-cometoOlive-dark text-white'
                     }`}>
                       {pizza.badge}
                     </span>
@@ -129,7 +129,7 @@ export default function PizzaMenu() {
         <ScrollReveal animation="zoom-in" delay={200} className="mt-14 max-w-4xl mx-auto">
           <div className="p-6 sm:p-8 rounded-3xl bg-flour border border-craft-300 shadow-warm flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-4 text-center sm:text-left">
-              <div className="w-12 h-12 rounded-2xl bg-cometoBlue-light text-cometoBlue-dark flex items-center justify-center shrink-0 shadow-sm">
+              <div className="w-12 h-12 rounded-2xl bg-cometoOlive-light text-cometoOlive-dark flex items-center justify-center shrink-0 shadow-sm">
                 <Sparkles className="w-6 h-6" />
               </div>
               <div>

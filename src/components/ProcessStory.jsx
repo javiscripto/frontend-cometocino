@@ -6,7 +6,7 @@ export default function ProcessStory() {
   return (
     <section
       id="proceso"
-      className="py-28 bg-[#F4EDE1] relative overflow-hidden border-t border-craft-300"
+      className="py-28 bg-[#F4EBDD] relative overflow-hidden border-t border-craft-300"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -28,7 +28,7 @@ export default function ProcessStory() {
                       <span className="text-xs font-black uppercase tracking-wider text-craft-800">
                         El Secreto de ComeTocino
                       </span>
-                      <span className="px-3 py-1 rounded-full bg-cometoBlue-light text-cometoBlue-dark text-xs font-black tracking-wide">
+                      <span className="px-3 py-1 rounded-full bg-cometoOlive-light text-cometoOlive-dark text-xs font-black tracking-wide">
                         Fermento Natural Vivo
                       </span>
                     </div>
@@ -105,8 +105,8 @@ export default function ProcessStory() {
 
               <ScrollReveal animation="fade-up" delay={300}>
                 <div className="flex items-start gap-4 p-5 rounded-2xl bg-flour border border-craft-300/80 shadow-warm hover:border-craft-400 transition-all hover:scale-101">
-                  <div className="w-12 h-12 rounded-2xl bg-cometoBlue/25 text-cometoBlue-dark flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
-                    <Heart className="w-6 h-6 text-cometoBlue-dark" />
+                  <div className="w-12 h-12 rounded-2xl bg-cometoOlive/25 text-cometoOlive-dark flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
+                    <Heart className="w-6 h-6 text-cometoOlive-dark" />
                   </div>
                   <div>
                     <h3 className="text-lg font-serif font-bold text-charcoal mb-1">

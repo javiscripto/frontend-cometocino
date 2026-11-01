@@ -45,7 +45,7 @@ export default function ImpactGallery() {
   ];
 
   return (
-    <section className="py-24 bg-[#191715] text-flour relative overflow-hidden">
+    <section className="py-24 bg-[#28221D] text-flour relative overflow-hidden">
       {/* Background radial glow of wood-fired embers */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-cometoRed/15 blur-[120px] pointer-events-none -z-10" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-cometoYellow/10 blur-[100px] pointer-events-none -z-10" />
@@ -131,7 +131,7 @@ export default function ImpactGallery() {
         >
           <div className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-craft-900 via-charcoal to-craft-900 border-2 border-craft-600/50 p-8 sm:p-14 shadow-2xl">
             {/* Background Texture & Warm Embers */}
-            <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#F6CE6E_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
+            <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#E9BC62_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
 
             <div className="relative z-10 grid lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-8">

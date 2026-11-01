@@ -18,10 +18,10 @@ export default function Hero() {
   const hoursCount = useScrollCounter(48, 1500, true);
 
   return (
-    <section className="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden bg-gradient-to-b from-[#F4EDE1] via-[#FAF6F0] to-[#FAF6F0]">
+    <section className="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden bg-gradient-to-b from-[#F4EBDD] via-[#FBF8F1] to-[#FBF8F1]">
       {/* Decorative background glows based on brand palette */}
       <div className="absolute top-12 left-1/2 -translate-x-1/2 w-[700px] h-[380px] bg-craft-400/25 blur-3xl rounded-full pointer-events-none -z-10" />
-      <div className="absolute top-36 right-4 sm:right-10 w-80 h-80 bg-cometoBlue/15 blur-3xl rounded-full pointer-events-none -z-10" />
+      <div className="absolute top-36 right-4 sm:right-10 w-80 h-80 bg-cometoOlive/15 blur-3xl rounded-full pointer-events-none -z-10" />
       <div className="absolute bottom-10 left-4 sm:left-10 w-96 h-96 bg-cometoYellow/25 blur-3xl rounded-full pointer-events-none -z-10" />
 
       {/* Subtle flour texture dots */}
@@ -123,8 +123,8 @@ export default function Hero() {
                 </div>
 
                 <div>
-                  <div className="flex items-center gap-1 text-cometoBlue-dark font-extrabold text-sm sm:text-base mb-1">
-                    <Clock className="w-4 h-4 text-cometoBlue" />
+                  <div className="flex items-center gap-1 text-cometoOlive-dark font-extrabold text-sm sm:text-base mb-1">
+                    <Clock className="w-4 h-4 text-cometoOlive" />
                     <span className="text-[11px] uppercase tracking-wide">
                       Masa Viva
                     </span>

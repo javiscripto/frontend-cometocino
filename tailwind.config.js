@@ -8,49 +8,49 @@ export default {
     extend: {
       colors: {
         craft: {
-          50: '#FAF6F0',
-          100: '#F4EDE1',
-          200: '#E8D8C3',
-          300: '#DCC3A4',
-          400: '#D0B087', // Brand exact base color
-          500: '#BE9A6B',
-          600: '#A68051',
-          700: '#84623B',
-          800: '#634729',
-          900: '#46301A',
+          50: '#FBF8F1',
+          100: '#F4EBDD',
+          200: '#E8D9C2',
+          300: '#D7BE9B',
+          400: '#C7A477',
+          500: '#AE8357',
+          600: '#8F6841',
+          700: '#705034',
+          800: '#503A28',
+          900: '#33271F',
         },
-        cometoBlue: {
-          light: '#EAF0FB',
-          DEFAULT: '#7298D7', // Bird blue
-          hover: '#5B84C8',
-          dark: '#355FA8',
-          navy: '#1B3766',
+        cometoOlive: {
+          light: '#EEF0E3',
+          DEFAULT: '#73764C',
+          hover: '#62663E',
+          dark: '#4E5437',
+          navy: '#343A2C',
         },
         cometoYellow: {
-          light: '#FEF8E7',
-          DEFAULT: '#F6CE6E', // Bird yellow
-          amber: '#F3B33D',
-          dark: '#D8961E',
+          light: '#FBF2DB',
+          DEFAULT: '#E9BC62',
+          amber: '#D99A3B',
+          dark: '#99631F',
         },
         cometoRed: {
-          light: '#FDECE8',
-          DEFAULT: '#D94A26', // Wood-fired pizza sauce & ember
-          dark: '#AC3114',
+          light: '#F8E9E1',
+          DEFAULT: '#C65A3B',
+          dark: '#9F3E29',
         },
         charcoal: {
-          light: '#2C2824',
-          DEFAULT: '#191715',
-          black: '#100E0D',
+          light: '#3A312A',
+          DEFAULT: '#28221D',
+          black: '#191512',
         },
         flour: {
-          DEFAULT: '#FDFBF7',
+          DEFAULT: '#FCF8F0',
           pure: '#FFFFFF',
-          cream: '#F7F3EB',
+          cream: '#F6F0E5',
         }
       },
       fontFamily: {
-        serif: ['"Playfair Display"', 'Georgia', 'serif'],
-        sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
+        serif: ['"Lora"', 'Georgia', 'serif'],
+        sans: ['"DM Sans"', 'Inter', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         'warm-sm': '0 2px 8px rgba(70, 48, 26, 0.08)',

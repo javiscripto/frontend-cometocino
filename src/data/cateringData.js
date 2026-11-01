@@ -368,10 +368,6 @@ export const FAQ_LIST = [
     a: "Nuestros hornos portátiles a gas son ultra compactos y eficientes. Solo necesitamos un espacio de aproximadamente 2x2 metros al aire libre, terraza techada o patio bien ventilado. No requerimos toma eléctrica especial ni cocina de la casa: ¡llegamos con estación 100% autónoma!",
   },
   {
-    q: '¿Qué significa que el servicio sea "Pizzas Ilimitadas"?',
-    a: "Significa que durante las horas contratadas (2 a 3.5 hrs según el plan), nuestros pizzeros no paran de preparar y hornear pizzas frescas. Van saliendo bandejas en rondas variadas para que tus invitados coman todo lo que deseen hasta quedar completamente satisfechos.",
-  },
-  {
     q: "¿Cuentan con opciones vegetarianas o sin lactosa?",
     a: "¡Por supuesto! En todos nuestros planes incluimos opciones vegetarianas gourmet como la Margherita, Huerto Campestre con pesto y Fugazza caramelizada. Si tienes invitados intolerantes a la lactosa o veganos, avísanos con antelación y llevamos queso vegetal o preparaciones especiales.",
   },

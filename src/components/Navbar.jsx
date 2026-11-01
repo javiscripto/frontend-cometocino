@@ -9,7 +9,7 @@ const navLinks = [
 ];
 
 const linkClass = ({ isActive }) =>
-  `text-sm font-semibold transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-cometoBlue after:transition-all ${isActive
+  `text-sm font-semibold transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-cometoOlive after:transition-all ${isActive
     ? "text-charcoal after:w-full"
     : "text-charcoal/80 hover:text-charcoal after:w-0 hover:after:w-full"
   }`;
@@ -29,8 +29,8 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-          ? "bg-[#FAF6F0]/95 backdrop-blur-md shadow-warm py-2.5 border-b border-craft-300/40"
-          : "bg-[#FAF6F0]/80 backdrop-blur-sm py-4 border-b border-transparent"
+          ? "bg-[#FBF8F1]/95 backdrop-blur-md shadow-warm py-2.5 border-b border-craft-300/40"
+          : "bg-[#FBF8F1]/80 backdrop-blur-sm py-4 border-b border-transparent"
         }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
@@ -70,7 +70,7 @@ export default function Navbar() {
             rel="noopener noreferrer"
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-craft-400/50 bg-flour text-charcoal text-xs font-bold hover:bg-craft-100 transition-all shadow-sm"
           >
-            <Phone className="w-3.5 h-3.5 text-cometoBlue-dark" />
+            <Phone className="w-3.5 h-3.5 text-cometoOlive-dark" />
             <span>WhatsApp</span>
           </a>
           <NavLink
@@ -100,7 +100,7 @@ export default function Navbar() {
       </div>
 
       {isOpen && (
-        <div className="xl:hidden bg-[#FAF6F0] border-b border-craft-300 px-6 py-5 shadow-warm animate-in fade-in slide-in-from-top-3 duration-200">
+        <div className="xl:hidden bg-[#FBF8F1] border-b border-craft-300 px-6 py-5 shadow-warm animate-in fade-in slide-in-from-top-3 duration-200">
           <nav className="flex flex-col gap-2">
             {navLinks.map((link) => (
               <NavLink
@@ -108,7 +108,7 @@ export default function Navbar() {
                 to={link.href}
                 onClick={closeMenu}
                 className={({ isActive }) =>
-                  `text-base font-semibold py-3 border-b border-craft-200/50 hover:text-cometoBlue ${isActive ? "text-cometoRed" : "text-charcoal"}`
+                  `text-base font-semibold py-3 border-b border-craft-200/50 hover:text-cometoOlive ${isActive ? "text-cometoRed" : "text-charcoal"}`
                 }
               >
                 {link.name}
@@ -138,7 +138,7 @@ export default function Navbar() {
                 onClick={closeMenu}
                 className="w-full text-center py-2.5 rounded-full border border-craft-400 bg-flour text-charcoal font-semibold text-sm flex items-center justify-center gap-2"
               >
-                <Phone className="w-4 h-4 text-cometoBlue-dark" />
+                <Phone className="w-4 h-4 text-cometoOlive-dark" />
                 Consultar por WhatsApp
               </a>
             </div>

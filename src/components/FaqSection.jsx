@@ -13,7 +13,7 @@ export default function FaqSection() {
   return (
     <section
       id="faq"
-      className="py-24 bg-[#F4EDE1] relative overflow-hidden border-t border-craft-300"
+      className="py-24 bg-[#F4EBDD] relative overflow-hidden border-t border-craft-300"
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}

@@ -100,7 +100,7 @@ function AppShell() {
   const [selectedPackageId, setSelectedPackageId] = useState("pizza-6");
 
   return (
-    <div className="min-h-screen bg-[#FAF6F0] text-charcoal font-sans selection:bg-cometoYellow selection:text-charcoal-black relative">
+    <div className="min-h-screen bg-[#FBF8F1] text-charcoal font-sans selection:bg-cometoYellow selection:text-charcoal-black relative">
       <ScrollToRoute />
       <ScrollProgressBar />
       <Navbar />

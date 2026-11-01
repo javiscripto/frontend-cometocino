@@ -3,10 +3,14 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    color-scheme: light;
+  }
+
   body {
-    background-color: #ff0000;
-    color: #191715;
-    font-family: "Plus Jakarta Sans", sans-serif;
+    background-color: #fbf8f1;
+    color: #28221d;
+    font-family: "DM Sans", Inter, system-ui, sans-serif;
   }
 
   h1,
@@ -14,16 +18,15 @@
   h3,
   h4,
   .font-serif {
-    font-family: "Playfair Display", Georgia, serif;
+    font-family: "Lora", Georgia, serif;
   }
 }
 
 /* Custom pizza & craft textures */
 .bg-kraft-texture {
-  background-color: #d0b087;
-  background-color: #f4ede1;
+  background-color: #f4ebdd;
   background-image: radial-gradient(
-      rgba(132, 98, 59, 0.12) 1px,
+      rgba(112, 80, 52, 0.12) 1px,
       transparent 1px
     ),
     radial-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px);
@@ -35,14 +38,14 @@
 
 .bg-flour-dots {
   background-image: radial-gradient(
-    rgba(208, 176, 135, 0.25) 1.5px,
+    rgba(199, 164, 119, 0.25) 1.5px,
     transparent 1.5px
   );
   background-size: 20px 20px;
 }
 
 .bg-dark-fire {
-  background: radial-gradient(circle at 50% 0%, #2b1c16 0%, #151210 100%);
+  background: radial-gradient(circle at 50% 0%, #3a2b22 0%, #191512 100%);
 }
 
 /* Subtle steam animation */
@@ -70,12 +73,12 @@
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #f4ede1;
+  background: #f4ebdd;
 }
 ::-webkit-scrollbar-thumb {
-  background: #be9a6b;
+  background: #ae8357;
   border-radius: 5px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #a68051;
+  background: #8f6841;
 }

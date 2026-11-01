@@ -17,7 +17,7 @@ export default function PackagesSection({ onSelectPackage }) {
   return (
     <section
       id="planes"
-      className="py-28 bg-[#F4EDE1] relative overflow-hidden border-t border-craft-300"
+      className="py-28 bg-[#F4EBDD] relative overflow-hidden border-t border-craft-300"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header with Big Editorial Typography */}
@@ -166,7 +166,7 @@ export default function PackagesSection({ onSelectPackage }) {
               href="https://wa.me/56949869112?text=Hola!%20Tengo%20un%20evento%20grande%20y%20me%20gustar%C3%ADa%20una%20propuesta%20a%20medida."
               target="_blank"
               rel="noopener noreferrer"
-              className="font-extrabold text-cometoBlue-dark underline hover:text-charcoal transition-colors ml-1"
+              className="font-extrabold text-cometoOlive-dark underline hover:text-charcoal transition-colors ml-1"
             >
               Hablemos directamente por WhatsApp para un menú personalizado
             </a>

@@ -21,7 +21,7 @@ export default function HowItWorks() {
   return (
     <section
       id="experiencia"
-      className="py-28 bg-[#FAF6F0] relative overflow-hidden"
+      className="py-28 bg-[#FBF8F1] relative overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Catering hero with looping oven footage */}
@@ -68,7 +68,7 @@ export default function HowItWorks() {
                   <div>
                     {/* Step Number & Icon */}
                     <div className="flex items-center justify-between mb-8">
-                      <span className="text-5xl font-serif font-black text-craft-300 group-hover:text-cometoBlue transition-colors">
+                      <span className="text-5xl font-serif font-black text-craft-300 group-hover:text-cometoOlive transition-colors">
                         {stepItem.step}
                       </span>
                       <div className="w-14 h-14 rounded-2xl bg-craft-100 group-hover:bg-cometoYellow text-charcoal flex items-center justify-center transition-all duration-300 shadow-inner">

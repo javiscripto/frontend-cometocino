@@ -53,7 +53,7 @@ function getOrderStatusVisual(status) {
     normalizedStatus.includes("repart") ||
     normalizedStatus.includes("transit")
   ) {
-    return { Icon: Car, color: "text-cometoBlue-dark" };
+    return { Icon: Car, color: "text-cometoOlive-dark" };
   }
   if (
     normalizedStatus.includes("entreg") ||
@@ -68,7 +68,7 @@ function getOrderStatusVisual(status) {
     normalizedStatus.includes("pendient") ||
     normalizedStatus.includes("pending")
   ) {
-    return { Icon: FileText, color: "text-cometoBlue-dark" };
+    return { Icon: FileText, color: "text-cometoOlive-dark" };
   }
 
   return { Icon: Clock, color: "text-charcoal/60" };
@@ -452,7 +452,7 @@ export default function OrderSection() {
         particleCount: 90,
         spread: 75,
         origin: { y: 0.6 },
-        colors: ["#F6CE6E", "#D94A26", "#7298D7", "#BE9A6B"],
+        colors: ["#E9BC62", "#C65A3B", "#73764C", "#AE8357"],
       });
       const locationUrl = currentLocation
         ? `https://maps.google.com/?q=${currentLocation.latitude},${currentLocation.longitude}`
@@ -500,7 +500,7 @@ export default function OrderSection() {
   return (
     <section
       id="pedidos"
-      className="py-24 bg-[#F7F3EB] relative overflow-hidden border-t border-craft-200"
+      className="py-24 bg-[#F6F0E5] relative overflow-hidden border-t border-craft-200"
     >
       {/* Decorative ambient elements */}
       <div className="absolute top-10 left-0 w-80 h-80 bg-cometoYellow/10 rounded-full blur-[100px] pointer-events-none" />
@@ -546,7 +546,7 @@ export default function OrderSection() {
                   placeholder="Buscar producto por nombre o descripción..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-craft-50 border border-craft-300 rounded-xl text-sm text-charcoal placeholder-charcoal/40 focus:outline-none focus:ring-2 focus:ring-cometoBlue focus:bg-flour transition-all"
+                  className="w-full pl-10 pr-4 py-2.5 bg-craft-50 border border-craft-300 rounded-xl text-sm text-charcoal placeholder-charcoal/40 focus:outline-none focus:ring-2 focus:ring-cometoOlive focus:bg-flour transition-all"
                 />
               </div>
 
@@ -565,7 +565,7 @@ export default function OrderSection() {
                   aria-label="Recargar productos"
                 >
                   <RefreshCw
-                    className={`w-4 h-4 ${loading ? "animate-spin text-cometoBlue" : ""}`}
+                    className={`w-4 h-4 ${loading ? "animate-spin text-cometoOlive" : ""}`}
                   />
                 </button>
               </div>
@@ -926,7 +926,7 @@ export default function OrderSection() {
                     placeholder="Tu Nombre Completo *"
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-craft-50 border border-craft-300 rounded-xl text-xs text-charcoal placeholder-charcoal/40 focus:outline-none focus:ring-2 focus:ring-cometoBlue focus:bg-flour"
+                    className="w-full px-3.5 py-2.5 bg-craft-50 border border-craft-300 rounded-xl text-xs text-charcoal placeholder-charcoal/40 focus:outline-none focus:ring-2 focus:ring-cometoOlive focus:bg-flour"
                   />
                 </div>
 
@@ -937,7 +937,7 @@ export default function OrderSection() {
                     placeholder="Teléfono / WhatsApp de contacto"
                     value={customerPhone}
                     onChange={(e) => setCustomerPhone(e.target.value)}
-                    className="w-full px-3.5 py-2.5 bg-craft-50 border border-craft-300 rounded-xl text-xs text-charcoal placeholder-charcoal/40 focus:outline-none focus:ring-2 focus:ring-cometoBlue focus:bg-flour"
+                    className="w-full px-3.5 py-2.5 bg-craft-50 border border-craft-300 rounded-xl text-xs text-charcoal placeholder-charcoal/40 focus:outline-none focus:ring-2 focus:ring-cometoOlive focus:bg-flour"
                   />
                 </div>
 
@@ -945,7 +945,7 @@ export default function OrderSection() {
                   <button
                     type="button"
                     onClick={shareCurrentLocation}
-                    className="w-full px-3.5 py-2.5 bg-craft-50 border border-craft-300 rounded-xl text-xs font-bold text-charcoal hover:bg-craft-100 focus:outline-none focus:ring-2 focus:ring-cometoBlue flex items-center justify-center gap-2 transition-colors"
+                    className="w-full px-3.5 py-2.5 bg-craft-50 border border-craft-300 rounded-xl text-xs font-bold text-charcoal hover:bg-craft-100 focus:outline-none focus:ring-2 focus:ring-cometoOlive flex items-center justify-center gap-2 transition-colors"
                   >
                     <MapPin className="w-4 h-4 text-cometoGreen" />
                     {currentLocation
@@ -965,7 +965,7 @@ export default function OrderSection() {
                     placeholder="Instrucciones adicionales como horario de entrega, ubicación de entrega, etc."
                     value={orderNotes}
                     onChange={(e) => setOrderNotes(e.target.value)}
-                    className="w-full px-3.5 py-2 bg-craft-50 border border-craft-300 rounded-xl text-xs text-charcoal placeholder-charcoal/40 focus:outline-none focus:ring-2 focus:ring-cometoBlue focus:bg-flour resize-none"
+                    className="w-full px-3.5 py-2 bg-craft-50 border border-craft-300 rounded-xl text-xs text-charcoal placeholder-charcoal/40 focus:outline-none focus:ring-2 focus:ring-cometoOlive focus:bg-flour resize-none"
                   />
                 </div>
                 <div className="rounded-xl border border-craft-300 bg-craft-50 p-3.5 space-y-2.5">
@@ -983,7 +983,7 @@ export default function OrderSection() {
                         setCaptchaAnswer("");
                         setCaptchaError("");
                       }}
-                      className="text-[10px] font-semibold text-cometoBlue-dark hover:underline"
+                      className="text-[10px] font-semibold text-cometoOlive-dark hover:underline"
                     >
                       Nuevo desafío
                     </button>
@@ -1003,7 +1003,7 @@ export default function OrderSection() {
                     }}
                     placeholder="Escribe el resultado"
                     aria-describedby="order-captcha-feedback"
-                    className="w-full px-3.5 py-2.5 bg-flour border border-craft-300 rounded-xl text-xs text-charcoal placeholder-charcoal/40 focus:outline-none focus:ring-2 focus:ring-cometoBlue"
+                    className="w-full px-3.5 py-2.5 bg-flour border border-craft-300 rounded-xl text-xs text-charcoal placeholder-charcoal/40 focus:outline-none focus:ring-2 focus:ring-cometoOlive"
                   />
                   <p
                     id="order-captcha-feedback"
@@ -1102,7 +1102,7 @@ export default function OrderSection() {
                       placeholder="Ingresa el ID de tu orden"
                       aria-label="ID de la orden para seguimiento"
                       required
-                      className="min-w-0 flex-1 px-3 py-2.5 bg-flour border border-craft-300 rounded-xl text-xs text-charcoal placeholder-charcoal/40 focus:outline-none focus:ring-2 focus:ring-cometoBlue"
+                      className="min-w-0 flex-1 px-3 py-2.5 bg-flour border border-craft-300 rounded-xl text-xs text-charcoal placeholder-charcoal/40 focus:outline-none focus:ring-2 focus:ring-cometoOlive"
                     />
                     <button
                       type="submit"
