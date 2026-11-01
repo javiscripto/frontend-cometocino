@@ -521,14 +521,14 @@ export default function OrderSection() {
             <p className="text-base sm:text-lg text-charcoal/75 max-w-2xl mx-auto mb-5">
               Pide online pizzas artesanales . Reparto directo en{" "}
               <strong className="text-charcoal font-bold">
-                Pelchuquin y al rededores
+                Pelchuquín y alrededores
               </strong>
               ,{" "}
             </p>
             <div className="inline-flex flex-wrap items-center justify-center gap-2 text-xs font-bold text-craft-800 bg-flour/90 px-4 py-2 rounded-full border border-craft-300 shadow-warm-sm">
               <span className="flex items-center gap-1.5">
                 <MapPin className="w-3.5 h-3.5 text-cometoRed shrink-0" />
-                Pizza artesanal desde Pelchuquin
+                Pizza artesanal desde Pelchuquín
               </span>
             </div>
           </div>
@@ -1026,7 +1026,7 @@ export default function OrderSection() {
                 </div>
                 <div>
                   <p>
-                    Al finalizar el pedido seras redirigido a WhatsApp para
+                    Al finalizar el pedido serás redirigido a WhatsApp para
                     coordinar el pago.
                   </p>
                 </div>
