@@ -75,7 +75,7 @@ function getOrderStatusVisual(status) {
 }
 
 const API_BASE_URL = (
-  import.meta.env.VITE_BACKEND_URL || "https://cometocino-backend.onrender.com"
+  "http://localhost:3000"
 ).replace(/\/+$/, "");
 
 const apiUrl = (path) => `${API_BASE_URL}${path}`;
