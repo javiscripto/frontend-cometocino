@@ -210,15 +210,18 @@ export const PIZZA_VARIETIES = [
     category: "dulces",
     badge: "El Broche de Oro",
     description:
-      "Masa madre inflada al fuego con mantequilla, abundante crema de avellanas Nutella o dulce de leche patagónico, frutillas frescas y lluvia de azúcar impalpable.",
+      "Masa madre inflada al fuego con mantequilla, abundante crema de avellanas Nutella, almendras, pistachos y frutillas frescas.",
     ingredients: [
-      "Nutella / Manjar",
+      "Nutella",
       "Frutos rojos y frutillas",
+      "pistachos",
+      "alemndras",
       "Azúcar flor",
       "Masa dorada",
     ],
     popular: true,
-    image: "/images/pizza-overhead.jpg",
+    image:
+      "https://res.cloudinary.com/kt1vvb0c/image/upload/v1795537583/nutella_pistachos.webp",
     tag: "Postre",
   },
 ];
